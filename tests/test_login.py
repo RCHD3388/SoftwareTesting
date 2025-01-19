@@ -9,7 +9,7 @@ from pageObjects.LandingPage import LandingPage
 from utilities.BaseClass import BaseClass
 
 
-class TestHomePage(BaseClass):
+class TestLogin(BaseClass):
     
     def doLogin(self, username, password): 
       landingPage = LandingPage(self.driver)
