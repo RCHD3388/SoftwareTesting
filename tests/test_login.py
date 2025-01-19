@@ -29,6 +29,9 @@ class TestLogin(BaseClass):
       landingPage.click_login_submit_button()
       time.sleep(2)
 
-    def test_login(self):
-        self.doLogin("admin@gmail.com","123456")
+    @pytest.mark.parametrize("email, password", [
+      PageData.getTestData("LoginData", "testcase1")
+    ])
+    def test_login(self, email, password):
+        self.doLogin(email, password)
 
