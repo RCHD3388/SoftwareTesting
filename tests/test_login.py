@@ -8,7 +8,6 @@ from TestData.PageData import PageData
 from pageObjects.LandingPage import LandingPage
 from utilities.BaseClass import BaseClass
 
-
 class TestLogin(BaseClass):
 
     @pytest.mark.parametrize("email, password", [

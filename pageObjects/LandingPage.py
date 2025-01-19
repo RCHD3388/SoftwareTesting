@@ -67,7 +67,6 @@ class LandingPage:
       time.sleep(0.5)
       # click login button
       self.click_login_submit_button()
-      time.sleep(2)
     
 
 

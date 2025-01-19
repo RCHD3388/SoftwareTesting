@@ -9,7 +9,6 @@ from pageObjects.LandingPage import LandingPage
 from utilities.BaseClass import BaseClass
 
 
-# @pytest.mark.usefixtures("setup")
 class TestRegister(BaseClass):
     
     def doRegister(self, email, code, first_name, mobile_number, last_name, password): 
