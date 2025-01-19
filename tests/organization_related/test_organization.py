@@ -9,12 +9,14 @@ from pageObjects.LandingPage import LandingPage
 from utilities.BaseClass import BaseClass
 
 
-class TestLogin(BaseClass):
-
+class TestOrganization(BaseClass):
+    
     @pytest.mark.parametrize("email, password", [
-      PageData.getTestData("LoginData", "testcase1")
+      PageData.getTestData("LoginData", "testcase2")
     ])
-    def test_login(self, email, password):
+    def test_organization(self, email, password):
       landingPage = LandingPage(self.driver)
       landingPage.doLogin(email, password)
+
+    
 
