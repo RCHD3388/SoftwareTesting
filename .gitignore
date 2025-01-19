@@ -1,0 +1,38 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and logs
+.cache
+.pytest_cache/
+*.log
+
+# Test result files
+.testresults/
+coverage/
+htmlcov/
+junit/
+
+# Virtual environment
+venv/
+ENV/
+
+# Selenium files
+*.selenium/
+
+# Environment variables
+.env
+
+# IDE specific settings
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# pytest
+pytest.ini
