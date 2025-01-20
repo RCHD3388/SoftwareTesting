@@ -1,4 +1,3 @@
-
 from selenium.webdriver.support.select import Select
 from selenium import webdriver
 import pytest
@@ -8,29 +7,25 @@ from TestData.PageData import PageData
 from pageObjects.AdminPage import AdminPage
 from pageObjects.StudentPage import StudentPage
 from utilities.BaseClass import BaseClass
-from tests.test_login import TestLogin
+from pageObjects.LandingPage import LandingPage
 
 class TestRequestInstructor(BaseClass):
-
-    def test_request_instructor(self, setup):
-        self.driver = setup
-        self.driver.get(self.base_url)
-        self.driver.maximize_window()
-        self.driver.implicitly_wait(10)
-        studentPage = StudentPage(self.driver)
-        adminPage = AdminPage(self.driver)
-        TestLogin(self.driver).test_login(
-            self.email, self.password
-        )
-        studentPage.doRequestInstructor(
-            PageData.firstName, PageData.lastName, PageData.phoneNumber,
-            PageData.address, PageData.cv, PageData.bio
-        )
-        adminPage.getPendingInstructor().click()
-        adminPage.getInstructorComboBox().click()
-        select = Select(adminPage.getInstructorComboBox())
-        select.select_by_visible_text(PageData.firstName + " " + PageData.lastName)
-        adminPage.getPendingInstructorApproveButton().click()
-        
-        
-        
+    @pytest.mark.parametrize("email, password", [
+      PageData.getTestData("LoginData", "testcase3")
+    ])
+    @pytest.mark.parametrize("firstName, lastName, phoneNumber, address, cv, bio, title", [
+      PageData.getTestData("RequestInstructor", "testcase1")
+    ])
+    
+    @pytest.mark.parametrize("firstName, lastName, phoneNumber, address, cv, bio, title", [
+        PageData.getTestData("RequestInstructor", "testcase1"),
+        PageData.getTestData("RequestInstructor", "testcase2"),
+        # Add more test cases here
+    ])
+    def test_request_instructor(self, setup, email, password, firstName, lastName, phoneNumber, address, cv, bio, title):
+      landingPage = LandingPage(self.driver)
+      landingPage.doLogin(email, password)
+      time.sleep(2)
+      studentPage = StudentPage(self.driver)
+      studentPage.doRequestInstructor(firstName, lastName, phoneNumber, address, cv, bio, title)
+      time.sleep(2)
