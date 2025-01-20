@@ -16,6 +16,7 @@ class AdminPage:
     add_instructor = (
         By.CSS_SELECTOR,"a[href='http://localhost:8000/admin/instructor/create']"
     )
+    
     def getInsFieldSelect(self, type, placeholder):
         return (By.XPATH, f"//select[@{type}='{placeholder}']")
     def getInsField(self, placeholder):
