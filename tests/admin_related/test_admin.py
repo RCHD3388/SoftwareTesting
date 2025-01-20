@@ -65,7 +65,7 @@ class TestOrganizationIns(BaseClass):
       time.sleep(4)
       adminpage.enter_ins_field("First Name", "new Instructor")
       adminpage.enter_ins_field("Last Name", "new Instructor")
-      adminpage.enter_ins_field("Email", "instructor@gmail.com")
+      adminpage.enter_ins_field("Email", "instructortest@gmail.com")
       adminpage.enter_ins_field("Password", "123456")
       adminpage.enter_ins_field("Professional Title", "Software Engineer")
       adminpage.enter_ins_field("Phone Number", "1232342")
