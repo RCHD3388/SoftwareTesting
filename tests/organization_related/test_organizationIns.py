@@ -59,6 +59,7 @@ class TestOrganizationIns(BaseClass):
       organizationPage.click_ins_button("Save")
       time.sleep(wait_time)
 
+
       assert organizationPage.getToastMessage() == output
     @pytest.mark.parametrize("email, password", [
       PageData.getTestData("LoginData", "testcase2")
@@ -90,6 +91,8 @@ class TestOrganizationIns(BaseClass):
       self.createInstructor(organizationPage, image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output)
       
       time.sleep(2)
+    
+    
 
 
 
