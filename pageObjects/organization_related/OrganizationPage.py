@@ -10,6 +10,7 @@ class OrganizationPage:
     organization_panel_button = (By.XPATH, "//a[normalize-space()='Organization Panel']")
     panel = (By.XPATH, "//a[normalize-space()='Organization Panel']")
     toast_message = (By.XPATH, "//div[@class='toast-message']")
+    edit_ins_button = (By.XPATH, "//tbody/tr[1]/td[9]/a[1]/img[1]")
     
     # SIDEAR
     def getHeadSidebarButton(self, placeholder):
@@ -45,7 +46,8 @@ class OrganizationPage:
     def enter_ins_img_field(self, value):
         self.driver.find_element(*self.add_ins_img).send_keys(value)
     def enter_ins_field(self, placeholder, value):
-        self.driver.find_element(*self.getInsField(placeholder)).send_keys(value)
+        element = self.driver.find_element(*self.getInsField(placeholder))
+        self.driver.execute_script("arguments[0].value = arguments[1];", element, value)
     def enter_ins_textarea(self, placeholder, value):
         self.driver.find_element(*self.getInsTextarea(placeholder)).send_keys(value)
     def enter_ins_select_field(self, type, placeholder, value):
@@ -54,10 +56,13 @@ class OrganizationPage:
     def click_ins_button(self, placeholder):
         ActionChains(self.driver).move_to_element(self.driver.find_element(*self.getInsButton(placeholder))).perform()
         self.driver.find_element(*self.getInsButton(placeholder)).click()
+    def click_edit_ins_button(self):
+        self.driver.find_element(*self.edit_ins_button).click()
 
     # TOAST MESSAGE
     def getToastMessage(self):
         return self.driver.find_element(*self.toast_message).text
+    
   
     
 
