@@ -151,8 +151,8 @@ class TestInstructorAddCourse(BaseClass):
       #SCROLL MENU
       instructorPage.scroll_to_menu("Live Class")
 
-      # find button
-      btn_upload = instructorPage.click_element("a","class","common-upload-lesson-btn font-13 font-medium")
+      # click uplaod 
+      instructorPage.click_element("a","class","common-upload-lesson-btn font-13 font-medium")
    
       delay()
 
@@ -187,6 +187,7 @@ class TestInstructorAddCourse(BaseClass):
       instructorPage.scroll_to_menu("Chat")
       delay()
       instructorPage.click_save_final()
+      delay()
       
 
       # ======================== PAGE terakhir ========================
@@ -194,17 +195,15 @@ class TestInstructorAddCourse(BaseClass):
       # isi input other instructor
       # instructorPage.enter_select_field_scroll("id", "instructor-id", "Ade")
 
-      # # tekan button save and continue
-      # instructorPage.click_button_scroll("Save and continue")
-      delay()
-      btn_save_terakhir = instructorPage.click_element("button","type","submit")
-      delay()
-      instructorPage.scroll_to_menu("Chat")
-      delay()
-      btn_submit_review = instructorPage.click_element("a","type","button")
+      #  tekan button save and continue pada page other instructor
+      instructorPage.click_button_scroll("Save and continue")
       delay()
       
       delay()
+      instructorPage.scroll_to_menu("Chat")
+      delay()
+      instructorPage.click_menu_side_bar("Submit for review")
+      
       instructorPage.verify_waiting_toreview()
       delay()
 

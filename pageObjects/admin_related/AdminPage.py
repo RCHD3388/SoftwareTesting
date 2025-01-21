@@ -16,7 +16,16 @@ class AdminPage:
     add_instructor = (
         By.CSS_SELECTOR,"a[href='http://localhost:8000/admin/instructor/create']"
     )
+    manage_course = (By.XPATH,"(//a[@class='has-arrow'])[1]")
     
+    review_pending = (By.CSS_SELECTOR,"a[href='http://localhost:8000/admin/course/review-pending']")
+    
+    def getElement(self,tag,type,content):
+        return (By.XPATH, f"//{tag}[@{type}='{content}']")
+    
+    def clickElement(self,tag,type,content):
+        return self.driver.find_element(*self.getElement(tag,type,content)).click()
+
     def getInsFieldSelect(self, type, placeholder):
         return (By.XPATH, f"//select[@{type}='{placeholder}']")
     def getInsField(self, placeholder):
@@ -48,8 +57,24 @@ class AdminPage:
         self.driver.find_element(*self.manage_instructor).click()
     def click_add_instructor(self):
         self.driver.find_element(*self.add_instructor).click()
+    def click_manage_course(self):
+        self.driver.find_element(*self.manage_course).click()
+    def click_review_pending(self):
+        self.driver.find_element(*self.review_pending).click()
     
-  
+    def click_approve_button(self):
+    # Check if the element exists
+        elements = self.driver.find_elements(By.XPATH, "(//a[@title='Make as Active'][normalize-space()='Approve'])[1]")
+        
+        if elements:
+            # If the element exists, click the first one
+            elements[0].click()
+            print("Approve button clicked.")
+            return True
+        else:
+            # If the element does not exist
+            print("Approve button does not exist.")
+            return False
     
 
 
