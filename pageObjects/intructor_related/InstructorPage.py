@@ -48,6 +48,11 @@ class InstructorPage():
     def scrollTo(self, element):
         self.driver.execute_script("arguments[0].scrollIntoView({ behavior: 'smooth', block: 'center' });", element)
         # ActionChains(self.driver).move_to_element(element).perform()
+
+    # scroll to x and y
+    def scrollToXY(self, x, y):
+        self.driver.execute_script(f"window.scrollBy({x}, window.innerHeight * {y} /100);")
+        
     #click element
     def click_element(self,tag,type,content):
         return self.driver.find_element(*self.getElementGeneral(tag,type,content)).click()
@@ -128,6 +133,7 @@ class InstructorPage():
         return self.driver.find_element(*self.getButton(placeholder))
 
     def click_menu_side_bar(self, placeholder):
+        self.scrollTo(self.driver.find_element(*self.getChildSidebarButton(placeholder)))
         self.driver.find_element(*self.getChildSidebarButton(placeholder)).click()
 
     def scroll_to_menu(self,placeholder):

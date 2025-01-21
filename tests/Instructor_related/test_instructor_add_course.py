@@ -53,7 +53,7 @@ class TestInstructorAddCourse(BaseClass):
 
       # isi input course image
       instructorPage.enter_field_scroll("id", "og_image", image_path)
-      delay()
+      delay(0.5)
 
       # tekan buttton continue
       instructorPage.click_button_scroll("Save and continue")
@@ -113,7 +113,7 @@ class TestInstructorAddCourse(BaseClass):
 
       # isi select course thumbnail
       instructorPage.enter_field_scroll("id", "image", image_path)
-      delay()
+      delay(0.5)
 
       # pilih upload video introduction
       instructorPage.click_radio_button_scroll("id", "youtube_check") 
@@ -124,7 +124,7 @@ class TestInstructorAddCourse(BaseClass):
       delay()
 
       # tekan buttton continue
-      instructorPage.click_button("Save and continue")
+      instructorPage.click_button_scroll("Save and continue")
       delay()
 
       # ======================== PAGE 3 ========================
@@ -133,10 +133,8 @@ class TestInstructorAddCourse(BaseClass):
       delay()
 
       # find button
-      
-      btn_continue = instructorPage.find_button("Save and continue")
+      instructorPage.scroll_to_menu("Live Class")
       delay()
-      instructorPage.scrollTo(btn_continue)
 
       # tekan buttton continue
       instructorPage.click_button_scroll("Save and continue")
@@ -146,18 +144,24 @@ class TestInstructorAddCourse(BaseClass):
 
       #assert message 
       actual_message = instructorPage.getToastMessage()
+      delay()
       expected_message = "Created successful."
       assert actual_message == "Created successful.", f"Expected: {expected_message}, but got: {actual_message}"
       #SCROLL MENU
-      instructorPage.scroll_to_menu("Live Class")
 
-      # find button
-      btn_upload = instructorPage.click_element("a","class","common-upload-lesson-btn font-13 font-medium")
-   
-      delay()
+      instructorPage.scrollToXY(0, 50)
+      delay(1)
+
+      # click btn upload lesson
+      instructorPage.click_menu_side_bar("Upload lesson")
+      delay(1)
 
       #assert message
 
+      #  =================== PAGE BARU LANJUTAN ===================
+      # scroll ke bawah
+      instructorPage.scrollToXY(0, 50)
+      delay(1)
 
       # pilih youtube link
       instructorPage.click_radio_button_scroll("id", "lectureTypeYoutube")
@@ -184,31 +188,44 @@ class TestInstructorAddCourse(BaseClass):
       delay()
 
       # tekan button save and continue
-      instructorPage.scroll_to_menu("Chat")
+      instructorPage.scrollToXY(0, 70)
       delay()
+
+      # scroll ke upload lesson btn
+      instructorPage.scroll_to_menu("Upload lesson")
+      delay()
+
       instructorPage.click_save_final()
+      delay()
       
 
       # ======================== PAGE terakhir ========================
 
-      # isi input other instructor
-      # instructorPage.enter_select_field_scroll("id", "instructor-id", "Ade")
+      # scroll ke bawah
+      instructorPage.scrollToXY(0, 50)
+      delay(1)
 
-      # # tekan button save and continue
-      # instructorPage.click_button_scroll("Save and continue")
-      delay()
-      btn_save_terakhir = instructorPage.click_element("button","type","submit")
-      delay()
+
       instructorPage.scroll_to_menu("Chat")
       delay()
-      btn_submit_review = instructorPage.click_element("a","type","button")
+
+      # tekan button save and continue
+      instructorPage.click_button_scroll("Save and continue")
+      delay()
+
+      # ========================= SAVE AND FINISH =========================
+      # scroll ke bawah
+      instructorPage.scrollToXY(0, 50)
+      delay(1)
+
+      instructorPage.click_menu_side_bar("Submit for review")
       delay()
       
-      delay()
+      # assert message
       instructorPage.verify_waiting_toreview()
       delay()
 
-      time.sleep(10)
+      time.sleep(5)
       # assert organizationPage.getToastMessage() == output
 
     
