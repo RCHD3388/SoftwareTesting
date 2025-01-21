@@ -13,45 +13,47 @@ class InstructorAddCoursePage():
     def __init__(self, driver):
         self.driver = driver
 
-    def createInstructor(self, instructorPage: InstructorPage,
-    #  image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output
+    def createInstructor(self, instructorPage: InstructorPage, course_type, course_title, course_subtitle, key_point, course_desc, meta_title, meta_desc, meta_key, course_image, category, subcategory, tags, request_course_status, drip_content, access_duration, learner_accessibility, course_price, old_course_price, language, difficulty_level, course_thumbnail, intro_youtube_id, section_title, lesson_youtube_id, learning_visibility, lesson_duration: str
     ):
-      image_path = os.path.abspath("TestData\\assets\\images\\avocatto.jpg")
+      image_path = os.path.abspath(course_image)
       image_path = image_path.replace("\\", "\\\\")
+
+      thumbnail_path = os.path.abspath(course_thumbnail)
+      thumbnail_path = thumbnail_path.replace("\\", "\\\\")
       
       def delay(t=0.3):
         time.sleep(t)
 
       # isi input course type
-      instructorPage.enter_select_field_scroll("id", "course_type","General")
+      instructorPage.enter_select_field_scroll("id", "course_type",course_type)
       delay()
 
       # isi input course title
-      instructorPage.enter_field("placeholder","Type your course title", "Course1")
+      instructorPage.enter_field("placeholder","Type your course title", course_title)
       delay()
 
       # isi input course subtitle
-      instructorPage.enter_textarea("placeholder", "Course subtitle in 1000 characters", "hehehe")
+      instructorPage.enter_textarea("placeholder", "Course subtitle in 1000 characters", course_subtitle)
       delay()
 
       # isi input course key points
-      instructorPage.enter_field_scroll("id","name", "Machine Learning")
+      instructorPage.enter_field_scroll("id","name", key_point)
       delay()
 
       # isi input course description
-      instructorPage.enter_textarea("placeholder", "Course description", "bisa ini mudah kok")
+      instructorPage.enter_textarea("placeholder", "Course description", course_desc)
       delay()
 
       # isi input meta title
-      instructorPage.enter_field_scroll("placeholder","Meta Title", "Trending")
+      instructorPage.enter_field_scroll("placeholder","Meta Title", meta_title)
       delay()
 
       # isi input meta description
-      instructorPage.enter_textarea("id", "exampleFormControlTextarea1", "Ini Lagi Trend")
+      instructorPage.enter_textarea("id", "exampleFormControlTextarea1", meta_desc)
       delay()
 
       # isi input meta keywords
-      instructorPage.enter_field_scroll("placeholder","Type meta keywords (comma separated)", "Machine Learning")
+      instructorPage.enter_field_scroll("placeholder","Type meta keywords (comma separated)", meta_key)
       delay()
 
       # isi input course image
@@ -66,56 +68,56 @@ class InstructorAddCoursePage():
       # CATEGORY & TAGS
 
       # isi select category
-      instructorPage.enter_select_field_scroll("id", "category_id", "IT & Software")
+      instructorPage.enter_select_field_scroll("id", "category_id", category)
       delay()
 
       # isi select sub category
-      instructorPage.enter_select_field("id", "subcategory_id", "IT Certifications")
+      instructorPage.enter_select_field("id", "subcategory_id", subcategory)
       delay()
 
       # isi tags
-      instructorPage.enter_select_field_scroll("name", "tag[]", "IT")
+      instructorPage.enter_select_field_scroll("name", "tag[]", tags)
       delay()
 
       # Learners Accesibility And Others
 
       # isi select request course
-      instructorPage.enter_select_field_scroll("name", "status", "Publish")
+      instructorPage.enter_select_field_scroll("name", "status", request_course_status)
       delay()
 
       # isi select drip content
-      instructorPage.enter_select_field("name", "drip_content", "Available sequentially")
+      instructorPage.enter_select_field("name", "drip_content", drip_content)
       delay()
 
       # isi input course access duration (in days)
-      instructorPage.enter_field("name", "access_period", "30")
+      instructorPage.enter_field("name", "access_period", access_duration)
       delay()
 
       # isi select learner accessibility
-      learner_accessibility = "Paid"
+    #   learner_accessibility = "Paid"
       instructorPage.enter_select_field_scroll("name", "learner_accessibility", learner_accessibility)
       delay()
 
       # if choose paid
       if learner_accessibility == "Paid" or learner_accessibility == "paid":
         # isi input course price
-        instructorPage.enter_field("placeholder", "price", "50")
+        instructorPage.enter_field("placeholder", "price", course_price)
         delay()
 
         # isi input old course price
-        instructorPage.enter_field("placeholder", "Old Price", "25")
+        instructorPage.enter_field("placeholder", "Old Price", old_course_price)
         delay()
 
       # isi select language
-      instructorPage.enter_select_field_scroll("id", "course_language_id", "English")
+      instructorPage.enter_select_field_scroll("id", "course_language_id", language)
       delay()
 
       # isi select difficulty level
-      instructorPage.enter_select_field_scroll("id", "difficulty_level_id", "Medium")
+      instructorPage.enter_select_field_scroll("id", "difficulty_level_id", difficulty_level)
       delay()
 
       # isi select course thumbnail
-      instructorPage.enter_field_scroll("id", "image", image_path)
+      instructorPage.enter_field_scroll("id", "image", thumbnail_path)
       delay(0.5)
 
       # pilih upload video introduction
@@ -123,7 +125,7 @@ class InstructorAddCoursePage():
       delay()
 
       # isi input video introduction
-      instructorPage.enter_field_scroll("id", "youtube_video_id", "IpFX2vq8HKw")
+      instructorPage.enter_field_scroll("id", "youtube_video_id", intro_youtube_id)
       delay()
 
       # tekan buttton continue
@@ -132,7 +134,7 @@ class InstructorAddCoursePage():
 
       # ======================== PAGE 3 ========================
       # isi section title
-      instructorPage.enter_field_scroll("placeholder", "Introduction", "Introduction")
+      instructorPage.enter_field_scroll("placeholder", "Introduction", section_title)
       delay()
 
       # find button
@@ -171,19 +173,22 @@ class InstructorAddCoursePage():
       delay()
 
       # isi input youtube link
-      instructorPage.enter_field("id", "youtube_url_path", "IpFX2vq8HKw")
+      instructorPage.enter_field("id", "youtube_url_path", lesson_youtube_id)
       delay()
 
       # isi input lesson title
-      instructorPage.enter_field("placeholder", "First steps", "Introduction aaa")
+      instructorPage.enter_field("placeholder", "First steps", section_title)
       delay()
 
       # isi select learning visibility
-      instructorPage.enter_select_field("name", "lecture_type", "Show")
+      instructorPage.enter_select_field("name", "lecture_type", learning_visibility)
       delay()
 
+      # pastikan lesson duration adalah string
+      hasil = str(lesson_duration)
+
       # isi input lesson duration
-      instructorPage.enter_field_scroll("name", "youtube_file_duration", "03:41")
+      instructorPage.enter_field_scroll("name", "youtube_file_duration", hasil)
       delay() 
 
       # tekan button save
@@ -208,10 +213,6 @@ class InstructorAddCoursePage():
       instructorPage.scrollToXY(0, 50)
       delay(1)
 
-
-      instructorPage.scroll_to_menu("Chat")
-      delay()
-
       # tekan button save and continue
       instructorPage.click_button_scroll("Save and continue")
       delay()
@@ -227,12 +228,10 @@ class InstructorAddCoursePage():
       # assert message
       instructorPage.verify_waiting_toreview()
       delay()
-
-      time.sleep(5)
       # assert organizationPage.getToastMessage() == output
 
 
-    def add_course(self):
+    def add_course(self, course_type, course_title, course_subtitle, key_point, course_desc, meta_title, meta_desc, meta_key, course_image, category, subcategory, tags, request_course_status, drip_content, access_duration, learner_accessibility, course_price, old_course_price, language, difficulty_level, course_thumbnail, intro_youtube_id, section_title, lesson_youtube_id, learning_visibility, lesson_duration):
       instructorPage = InstructorPage(self.driver)
         # klik instructor panel
       instructorPage.click_instruction_panel_button()
@@ -247,12 +246,9 @@ class InstructorAddCoursePage():
       instructorPage.click_menu_side_bar("Upload Course")
       time.sleep(0.5)
 
-      # instructorPage.enter_select_field("course_type", "Course Type","General")
-
       # FIELD
       self.createInstructor(
-        instructorPage,
-          # image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output
-         )
+        instructorPage, course_type, course_title, course_subtitle, key_point, course_desc, meta_title, meta_desc, meta_key, course_image, category, subcategory, tags, request_course_status, drip_content, access_duration, learner_accessibility, course_price, old_course_price, language, difficulty_level, course_thumbnail, intro_youtube_id, section_title, lesson_youtube_id, learning_visibility, lesson_duration
+        )
       
       time.sleep(2)
