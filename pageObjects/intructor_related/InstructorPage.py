@@ -37,6 +37,10 @@ class InstructorPage():
         return (By.XPATH, f"//button[@{type}='{placeholder}']")
     def getElementGeneral(self,tag,type,content):
         return (By.XPATH, f"//{tag}[@{type}='{content}']")
+    def getChatButton(self, sender, course_name):
+        return (By.XPATH, f"//span[contains(@class,'user-name') and contains(text(), '{sender}')]/following-sibling::span[contains(@class, 'course-title')]//span[@class='title' and contains(text(), '{course_name}')]")
+    def getChatMessage(self, type):
+        return (By.XPATH, f"//div[@class='chat-message {type}'][1]")
         
     def getToastMessage(self):
         wait = WebDriverWait(self.driver, 10)
@@ -79,6 +83,9 @@ class InstructorPage():
         
     def click_button(self, placeholder):
         self.driver.find_element(*self.getButton(placeholder)).click()
+
+    def click_chat_name(self, sender, course_name):
+        self.driver.find_element(*self.getChatButton(sender, course_name)).click()
 
     # radio button
     def click_radio_button(self, type, placeholder):
@@ -139,6 +146,11 @@ class InstructorPage():
     def scroll_to_menu(self,placeholder):
         element = self.driver.find_element(*self.getChildSidebarButton(placeholder))
         self.scrollTo(element) 
+
+    # get chat message
+    def get_chat_message_text(self, type):
+        return self.driver.find_element(*self.getChatMessage(type)).text
+
         
     def verify_waiting_toreview(self):
         try:
