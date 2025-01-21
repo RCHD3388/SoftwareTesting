@@ -162,9 +162,9 @@ class TestOrganizationIns(BaseClass):
       organizationPage.click_sidebar_head_button("2")
       time.sleep(0.5)
       organizationPage.click_sidebar_child_button("All Instructor")
-      time.sleep(0.5)
+      time.sleep(1)
       organizationPage.click_detail_insstd(ins_email)
-      time.sleep(3)
+      time.sleep(0.5)
 
       self.nextWindows()
       time.sleep(1)

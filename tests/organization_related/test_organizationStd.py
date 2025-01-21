@@ -92,8 +92,8 @@ class TestOrganizationIns(BaseClass):
     ])
     @pytest.mark.parametrize("image, first_name, last_name, ins_email, ins_password, area, mobile, country, state, city, address, postal, gender, about, output", [
       PageData.getTestData("OrganizationStudentData", "testcase7"),
-      # PageData.getTestData("OrganizationStudentData", "testcase8"),
-      # PageData.getTestData("OrganizationStudentData", "testcase9"),
+      PageData.getTestData("OrganizationStudentData", "testcase8"),
+      PageData.getTestData("OrganizationStudentData", "testcase9"),
     ])
     def test_organization_edit_student(self, email, password
       , image, first_name, last_name, ins_email, ins_password, area, mobile, country, state, city, address, postal, gender, about, output):
@@ -109,7 +109,7 @@ class TestOrganizationIns(BaseClass):
       organizationPage.click_sidebar_head_button("3")
       time.sleep(0.5)
       organizationPage.click_sidebar_child_button("All Student")
-      time.sleep(0.5)
+      time.sleep(1)
       organizationPage.click_edit_std_button()
       time.sleep(0.5)
 
@@ -127,6 +127,7 @@ class TestOrganizationIns(BaseClass):
       time.sleep(wait_time)
 
       assert organizationPage.getToastMessage() == output
+      time.sleep(1)
     
     def nextWindows(self):
       windows = self.driver.window_handles
