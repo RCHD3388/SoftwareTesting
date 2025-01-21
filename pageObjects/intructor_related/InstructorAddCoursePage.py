@@ -1,16 +1,18 @@
-import pytest
-import time
-
-from TestData.PageData import PageData
-from pageObjects.LandingPage import LandingPage
-from pageObjects.intructor_related.InstructorPage import InstructorPage
-from pageObjects.intructor_related.InstructorAddCoursePage import InstructorAddCoursePage
-from utilities.BaseClass import BaseClass
+from re import S
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 
 import os
+import time
+from pageObjects.intructor_related.InstructorPage import InstructorPage
 
-class TestInstructorAddCourse(BaseClass):
-    
+class InstructorAddCoursePage():
+    def __init__(self, driver):
+        self.driver = driver
+
     def createInstructor(self, instructorPage: InstructorPage,
     #  image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output
     ):
@@ -229,49 +231,28 @@ class TestInstructorAddCourse(BaseClass):
       time.sleep(5)
       # assert organizationPage.getToastMessage() == output
 
-    
-    @pytest.mark.parametrize("email, password", [
-      PageData.getTestData("LoginData", "testcase3")
-    ])
-    # @pytest.mark.parametrize("image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output", [
-    #   PageData.getTestData("OrganizationInstructorData", "testcase6"),
-    #   # PageData.getTestData("OrganizationInstructorData", "testcase2"),
-    #   # PageData.getTestData("OrganizationInstructorData", "testcase3"),
-    #   # PageData.getTestData("OrganizationInstructorData", "testcase4"),
-    #   # PageData.getTestData("OrganizationInstructorData", "testcase5"),
-    # ])
-    def test_instrucutor_add_course(self, email, password
-      # , image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output
-      ):
-      landingPage = LandingPage(self.driver)
-      # instructorPage = InstructorPage(self.driver)
-      instructorAddCoursePage = InstructorAddCoursePage(self.driver)
-      # login
-      landingPage.doLogin(email, password)
+
+    def add_course(self):
+      instructorPage = InstructorPage(self.driver)
+        # klik instructor panel
+      instructorPage.click_instruction_panel_button()
       time.sleep(0.5)
 
-      # add course
-      instructorAddCoursePage.add_course()
+      # tutup pop up cookie
+      # instructorPage.click_button_pop_up("aria-label", "Close")
+      instructorPage.click_button("Allow cookies")
+      time.sleep(0.5)
 
-      # # klik instructor panel
-      # instructorPage.click_instruction_panel_button()
-      # time.sleep(0.5)
+      # klik menu upload course
+      instructorPage.click_menu_side_bar("Upload Course")
+      time.sleep(0.5)
 
-      # # tutup pop up cookie
-      # # instructorPage.click_button_pop_up("aria-label", "Close")
-      # instructorPage.click_button("Allow cookies")
-      # time.sleep(0.5)
+      # instructorPage.enter_select_field("course_type", "Course Type","General")
 
-      # # klik menu upload course
-      # instructorPage.click_menu_side_bar("Upload Course")
-      # time.sleep(0.5)
-
-      # # instructorPage.enter_select_field("course_type", "Course Type","General")
-
-      # # FIELD
-      # self.createInstructor(
-      #   instructorPage,
-      #     # image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output
-      #    )
+      # FIELD
+      self.createInstructor(
+        instructorPage,
+          # image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output
+         )
       
       time.sleep(2)
