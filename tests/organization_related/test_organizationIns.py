@@ -90,7 +90,7 @@ class TestOrganizationIns(BaseClass):
       # FIELD
       self.createInstructor(organizationPage, image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output)
       
-      time.sleep(2)
+      time.sleep(2) 
     
     
 

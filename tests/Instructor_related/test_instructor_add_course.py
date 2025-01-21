@@ -133,6 +133,7 @@ class TestInstructorAddCourse(BaseClass):
       delay()
 
       # find button
+      
       btn_continue = instructorPage.find_button("Save and continue")
       delay()
       instructorPage.scrollTo(btn_continue)
@@ -143,14 +144,20 @@ class TestInstructorAddCourse(BaseClass):
 
       # ======================== PAGE 4 ========================
 
+      #assert message 
+      actual_message = instructorPage.getToastMessage()
+
+      assert actual_message == "Created successful.", f"Expected: {expected_message}, but got: {actual_message}"
+      #SCROLL MENU
+      instructorPage.scroll_to_menu("Live Class")
+
       # find button
-      btn_upload = instructorPage.find_button("Upload lesson")
+      btn_upload = instructorPage.click_element("a","class","common-upload-lesson-btn font-13 font-medium")
+   
       delay()
 
-      instructorPage.scrollTo(btn_upload)
-      # tekan button upload lesson
-      instructorPage.click_button_scroll("Upload lesson")
-      delay()
+      #assert message
+
 
       # pilih youtube link
       instructorPage.click_radio_button_scroll("id", "lectureTypeYoutube")
@@ -177,16 +184,24 @@ class TestInstructorAddCourse(BaseClass):
       delay()
 
       # tekan button save and continue
-      instructorPage.click_button_scroll("Save and continue")
+      instructorPage.scroll_to_menu("Chat")
+      delay()
+      instructorPage.click_save_final()
+      
 
       # ======================== PAGE terakhir ========================
 
       # isi input other instructor
       # instructorPage.enter_select_field_scroll("id", "instructor-id", "Ade")
 
-      # tekan button save and continue
-      instructorPage.click_button_scroll("Save and continue")
-
+      # # tekan button save and continue
+      # instructorPage.click_button_scroll("Save and continue")
+      delay()
+      btn_save_terakhir = instructorPage.click_element("button","type","submit")
+      delay()
+      instructorPage.scroll_to_menu("Chat")
+      delay()
+      btn_submit_review = instructorPage.click_element("a","type","button")
       time.sleep(10)
 
       
