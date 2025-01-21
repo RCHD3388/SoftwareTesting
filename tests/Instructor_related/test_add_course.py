@@ -29,8 +29,11 @@ class TestOrganizationIns(BaseClass):
       landingPage.doLogin(email, password)
       time.sleep(2)
       instructorPage.open_instructor_panel()
-      instructorPage.open_upload_course()
       time.sleep(2)
+      instructorPage.open_upload_course()
+      time.sleep(1)
+      instructorPage.fill_course_input()
+      time.sleep(20)
 
 
 
