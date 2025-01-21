@@ -50,6 +50,7 @@ class InstructorPage():
         # ActionChains(self.driver).move_to_element(element).perform()
     #click element
     def click_element(self,tag,type,content):
+        self.scrollTo(self.driver.find_element(*self.getElementGeneral(tag,type,content)))
         return self.driver.find_element(*self.getElementGeneral(tag,type,content)).click()
 
     # function for instructor page
