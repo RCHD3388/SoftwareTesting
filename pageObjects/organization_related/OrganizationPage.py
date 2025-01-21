@@ -10,7 +10,9 @@ class OrganizationPage:
     organization_panel_button = (By.XPATH, "//a[normalize-space()='Organization Panel']")
     panel = (By.XPATH, "//a[normalize-space()='Organization Panel']")
     toast_message = (By.XPATH, "//div[@class='toast-message']")
-    
+    edit_ins_button = (By.XPATH, "//tbody/tr[1]/td[9]/a[1]/img[1]")
+    edit_std_button = (By.XPATH, "//tbody/tr[1]/td[6]/a[1]/img[1]")
+
     # SIDEAR
     def getHeadSidebarButton(self, placeholder):
         return (By.XPATH, f"//li[{placeholder}]//span[1]")
@@ -45,7 +47,8 @@ class OrganizationPage:
     def enter_ins_img_field(self, value):
         self.driver.find_element(*self.add_ins_img).send_keys(value)
     def enter_ins_field(self, placeholder, value):
-        self.driver.find_element(*self.getInsField(placeholder)).send_keys(value)
+        element = self.driver.find_element(*self.getInsField(placeholder))
+        self.driver.execute_script("arguments[0].value = arguments[1];", element, value)
     def enter_ins_textarea(self, placeholder, value):
         self.driver.find_element(*self.getInsTextarea(placeholder)).send_keys(value)
     def enter_ins_select_field(self, type, placeholder, value):
@@ -54,11 +57,24 @@ class OrganizationPage:
     def click_ins_button(self, placeholder):
         ActionChains(self.driver).move_to_element(self.driver.find_element(*self.getInsButton(placeholder))).perform()
         self.driver.find_element(*self.getInsButton(placeholder)).click()
+    def click_edit_ins_button(self):
+        self.driver.find_element(*self.edit_ins_button).click()
+    def click_edit_ins_status(self, value):
+        select = Select(self.driver.find_element(*self.edit_ins_status))
+        select.select_by_visible_text(value)
+
+    # STUDENT
+    def click_edit_std_button(self):
+        self.driver.find_element(*self.edit_std_button).click()
+    def click_detail_insstd(self, email):
+        email_td = self.driver.find_element(By.XPATH, f"//td[contains(text(), '{email}')]")
+        # Dari td tersebut, naik ke parent tr dan cari td terakhir di dalam tr tersebut
+        last_td_in_row = email_td.find_element(By.XPATH, "./../td[last()]")
+        last_td_in_row.click()
 
     # TOAST MESSAGE
     def getToastMessage(self):
         return self.driver.find_element(*self.toast_message).text
-    
     
   
     

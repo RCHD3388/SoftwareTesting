@@ -46,10 +46,10 @@ def setup(request):
 
     request.cls.driver = driver
     yield
-    driver.close()
+    driver.quit()
 
-
-@pytest.mark.hookwrapper
+# Fixture untuk mengambil screenshot jika terjadi kegagalan
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item):
     """
         Extends the PyTest Plugin to take and embed screenshot in html report, whenever test fails.
