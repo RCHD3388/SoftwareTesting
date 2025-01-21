@@ -146,7 +146,7 @@ class TestInstructorAddCourse(BaseClass):
 
       #assert message 
       actual_message = instructorPage.getToastMessage()
-
+      expected_message = "Created successful."
       assert actual_message == "Created successful.", f"Expected: {expected_message}, but got: {actual_message}"
       #SCROLL MENU
       instructorPage.scroll_to_menu("Live Class")
@@ -202,10 +202,13 @@ class TestInstructorAddCourse(BaseClass):
       instructorPage.scroll_to_menu("Chat")
       delay()
       btn_submit_review = instructorPage.click_element("a","type","button")
-      time.sleep(10)
-
+      delay()
       
+      delay()
+      instructorPage.verify_waiting_toreview()
+      delay()
 
+      time.sleep(10)
       # assert organizationPage.getToastMessage() == output
 
     
