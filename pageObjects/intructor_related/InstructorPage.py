@@ -134,7 +134,24 @@ class InstructorPage():
         element = self.driver.find_element(*self.getChildSidebarButton(placeholder))
         self.scrollTo(element) 
         
-
+    def verify_waiting_toreview(self):
+        try:
+            # Wait for the first element with the specific class
+            first_element = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.XPATH, "//span[contains(@class, 'course-tag badge publish-badge radius-3 font-14 font-medium position-absolute')]"))
+            )
+            
+            # Verify the text of the element
+            if first_element.text.strip() == "Waiting for Review":
+                print("Element with text 'Waiting for Review' found.")
+                return True
+            else:
+                print(f"Element found, but text is '{first_element.text.strip()}' instead of 'Waiting for Review'.")
+                return False
+        except Exception as e:
+            print(f"Element not found: {e}")
+            return False
+        
 
 
     

@@ -75,6 +75,8 @@ class OrganizationPage:
     # TOAST MESSAGE
     def getToastMessage(self):
         return self.driver.find_element(*self.toast_message).text
+
+        
     
   
     
