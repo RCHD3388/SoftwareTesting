@@ -151,7 +151,7 @@ class InstructorAddCoursePage():
       actual_message = instructorPage.getToastMessage()
       delay()
       expected_message = "Created successful."
-      assert actual_message == "Created successful.", f"Expected: {expected_message}, but got: {actual_message}"
+      assert actual_message == expected_message, f"Expected: {expected_message}, but got: {actual_message}"
       #SCROLL MENU
 
       instructorPage.scrollToXY(0, 50)

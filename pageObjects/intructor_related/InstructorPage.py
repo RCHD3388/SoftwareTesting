@@ -22,6 +22,8 @@ class InstructorPage():
         return (By.XPATH, f"//li[{placeholder}]//span[1]")
     def getChildSidebarButton(self, placeholder):
         return (By.XPATH, f"//a[normalize-space()='{placeholder}']")
+    def getChildSidebarButtonByIndex(self, placeholder,index):
+        return (By.XPATH, f"//a[normalize-space()='{placeholder}'][{index}]")
     
     # template for xpath
     add_img = (By.XPATH, "//input[@id='image']")
@@ -37,10 +39,15 @@ class InstructorPage():
         return (By.XPATH, f"//button[@{type}='{placeholder}']")
     def getElementGeneral(self,tag,type,content):
         return (By.XPATH, f"//{tag}[@{type}='{content}']")
+    def getElementGeneralContainsWithIndex(self,tag,type,content,index):
+        return (By.XPATH, f"//{tag}[contains(@{type},'{content}')][{index}]")
     def getChatButton(self, sender, course_name):
         return (By.XPATH, f"//span[contains(@class,'user-name') and contains(text(), '{sender}')]/following-sibling::span[contains(@class, 'course-title')]//span[@class='title' and contains(text(), '{course_name}')]")
     def getChatMessage(self, type):
         return (By.XPATH, f"//div[@class='chat-message {type}'][1]")
+    def getDiscussionChatReplyInput(self,type, placeholder):
+        return (By.XPATH, f"//input[@{type}='{placeholder}'][last()]")
+   
         
     def getToastMessage(self):
         wait = WebDriverWait(self.driver, 10)
@@ -70,6 +77,7 @@ class InstructorPage():
     
     # input text field
     def enter_field(self, type, placeholder, value):
+        self.driver.find_element(*self.getInputTextField(type,placeholder)).clear()
         self.driver.find_element(*self.getInputTextField(type,placeholder)).send_keys(value)
 
     # textarea field
@@ -100,11 +108,13 @@ class InstructorPage():
     def enter_field_scroll(self, type, placeholder, value):
         field_element = self.driver.find_element(*self.getInputTextField(type,placeholder))
         self.scrollTo(field_element)
+        field_element.clear()
         field_element.send_keys(value)
 
     def enter_textarea_scroll(self, type, placeholder, value):
         textareaElement = self.driver.find_element(*self.getInputTextareaField(type, placeholder))
         self.scrollTo(textareaElement)
+        textareaElement.clear()
         textareaElement.send_keys(value)
 
     def enter_select_field_scroll(self, type, placeholder, value):
@@ -150,8 +160,44 @@ class InstructorPage():
     # get chat message
     def get_chat_message_text(self, type):
         return self.driver.find_element(*self.getChatMessage(type)).text
+    
+    def click_reply_button(self, tag, type, content):
+        self.driver.find_element(*self.getElementGeneralContainsWithIndex(tag, type, content,"last()")).click()
+    
+    # reply discussion chat
+    def enter_discussion_chat_reply(self, type, placeholder, value):
+        self.driver.find_element(*self.getDiscussionChatReplyInput(type,placeholder)).send_keys(value)
 
+    # click consultation menu
+    def click_menu_consultation(self,placeholder):
+        menu_element = self.driver.find_element(*self.getChildSidebarButton(placeholder))
+        self.scrollTo(menu_element)
+        self.driver.execute_script("arguments[0].click();", menu_element)
         
+
+    # click dashboard consultation
+    def click_dashboard_consultation(self):
+        self.driver.find_element(By.XPATH, "//ul[@class='account-sub-menu']//a[normalize-space()='Dashboard']").click()
+
+    def click_offline_status(self, type, placeholder):
+        checkbox_element = self.driver.find_element(*self.getInputTextField(type, placeholder))
+        if not checkbox_element.is_selected():
+            self.driver.execute_script("arguments[0].click();", checkbox_element)
+
+    def click_button_save_consultation(self,index):
+        button_element = self.driver.find_element(By.XPATH, f"//button[@type='submit' and text()='Save'][{index}]")
+        self.driver.execute_script("arguments[0].click();", button_element)
+
+    def click_add_slot_consultation(self):
+        self.driver.find_element(By.XPATH, "//button[contains(@class,'saturdayAddSlot')]").click()
+
+    def click_save_slot_consultation(self):
+        self.driver.find_element(By.XPATH, "//div[@class='col d-flex justify-content-between']//button[@type='submit'][normalize-space()='Save']").click()
+
+    def click_button_consultation_day_status(self):
+        self.driver.find_element(*self.getChildSidebarButtonByIndex("Off day","last()")).click()
+    
+
     def verify_waiting_toreview(self):
         try:
             # Wait for the first element with the specific class
