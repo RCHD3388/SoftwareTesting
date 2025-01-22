@@ -65,3 +65,6 @@ class TestForumDiscussion(BaseClass):
         
         studentPage.doCreateForumQuestion(title, subtitle, status)
         time.sleep(2)
+        
+        studentPage.doLogout()
+        time.sleep(2)

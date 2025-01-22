@@ -1,11 +1,13 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
 class StudentPage:
     def __init__(self, driver):
         self.driver = driver
         self.become_instructor_nav = (By.XPATH, "//*[@id='navbarSupportedContent']/div[2]/ul/li[3]/a")
-        self.become_instructor_button = (By.XPATH, "/html/body/div[2]/section[1]/div/div[2]/div/button")
+        self.become_instructor_button = (By.XPATH, "/html/body/div[2]/section[1]/div/div[2]/div/button")#ABSOUlute masihan
         self.first_name_input_become_instructor = (By.XPATH, "//*[@id='first_name']")
         self.instructor_type_input_become_instructor = (By.XPATH, "//*[@id='becomeAnInstructor']/div/div/form/div[1]/div[2]/div/select")
         self.last_name_input_become_instructor = (By.XPATH, "//*[@id='last_name']")
@@ -14,20 +16,47 @@ class StudentPage:
         self.cv_input_become_instructor = (By.XPATH, "//*[@id='becomeAnInstructor']/div/div/form/div[1]/div[7]/div/div/input")
         self.bio_become_instructor = (By.XPATH, "//*[@id='becomeAnInstructor']/div/div/form/div[1]/div[8]/div/textarea")
         self.submit_become_instructor = (By.XPATH, "//*[@id='becomeAnInstructor']/div/div/form/div[2]/button")
-        self.profile = (By.XPATH, "//*[@id='navbarSupportedContent']/div[2]/ul/li[2]/a")
+        self.profile = (By.XPATH, "//*[@id='navbarSupportedContent']/div[2]/ul/li[7]/a/img")
         self.logout_button = (By.XPATH, "//*[@id='navbarSupportedContent']/div[2]/ul/li[7]/div/ul[3]/li[2]/a")
         self.professional_title_become_instructor = (By.XPATH, "//*[@id='becomeAnInstructor']/div/div/form/div[1]/div[3]/div/select")
+        #forum page
+        self.forum_category_logo = (By.XPATH, "//*[@id='logo']")
+        self.forum_category_title = (By.XPATH, "//*[@id='title']")
+        self.forum_category_subtitle = (By.XPATH, "//*[@id='subtitle']")
+        self.forum_category_status = (By.XPATH, "//*[@id='status']")
         self.forum_button = (By.XPATH, "//*[@id='navbarSupportedContent']/div[2]/ul/li[2]/a")
         self.ask_question_button = (By.XPATH, "//a[@class='theme-button1']")
         self.submit_question_button = (By.XPATH, "//button[@type='submit']")
         self.topic_title_input = (By.XPATH, "//input[@placeholder='Enter your topic title']")
         self.category_input = (By.XPATH, "//select[@id='inputState']")
         self.question_input = (By.XPATH, "//div[@role='textbox']//p")
-        #forum page
-        self.forum_category_title = (By.XPATH, "//*[@id='title']")
-        self.forum_category_subtitle = (By.XPATH, "//*[@id='subtitle']")
-        self.forum_category_status = (By.XPATH, "//*[@id='status']")
-
+        #blogs page
+        self.pages_dropdown = (By.XPATH, "//*[@id='pagesDropdown']")
+        self.blogs_button = (By.XPATH, "//*[@id='navbarSupportedContent']/div[2]/ul/li[1]/ul/li[1]/a")
+        self.blogs_dropdown = (By.XPATH, "//a[contains(@class,'dropdown-item')][normalize-space()='Blogs']")
+        self.blog = "//h3[@class='card-title blog-title']//a[contains(text(),'{}')]"  # Dynamic xpath with placeholder for title
+        self.blog_reply_input = (By.XPATH, "//*[@id='cus_comment']")
+        self.blog_reply_submit = (By.XPATH, "//button[normalize-space()='Submit Now']")
+        #chats
+        self.chats_button = (By.XPATH, "//*[@id='navbarSupportedContent']/div[2]/ul/li[7]/div/ul[1]/li[3]/a")
+        self.chat_xpath = "//span[contains(@class, 'user-name') and contains(text(), '{}')]/following-sibling::span[contains(@class, 'course-title')]//span[@class='title' and contains(text(), '{}')]"
+        self.chat_reply_input = (By.XPATH, "//*[@id='chat-message']")
+        self.chat_reply_submit = (By.XPATH, "//*[@id='chat-send']/span")
+        
+        #discussions
+        self.my_learning_button = (By.XPATH, "//a[normalize-space()='My Learning']")
+        self.course_view_button = "//tbody/tr[{}]/td[7]/a[1]"  # Dynamic xpath with placeholder for row number
+        self.discussions_button = (By.XPATH, "//*[@id='Discussion-tab']")
+        self.discussions_create_button = (By.XPATH, "//*[@id='Discussion']/div/div/div/div[1]/div[2]/div[1]/button")
+        self.discussions_content_input = (By.XPATH, "//*[@id='mytextarea']")
+        self.discussions_submit_button = (By.XPATH, "//*[@id='Discussion']/div/div/div/div[1]/div[2]/div[2]/form/button")
+        #reviews
+        self.reviews_button = (By.XPATH, "//*[@id='Review-tab']")
+        self.reviews_write_button = (By.XPATH, "//button[normalize-space()='Write a review']")
+        self.reviews_feedback_input = (By.XPATH, "//*[@id='exampleFormControlTextarea1']")
+        self.reviews_submit_button = (By.XPATH, "//*[@id='writeReviewModal']/div/div/div[3]/button[2]")
+        self.reviews_star_template = "//*[@id='writeReviewModal']/div/div/div[2]/form/div[1]/div/div/label[{}]"
+    #become instructor  
     def getBecomeInstructorButton(self):
         return self.driver.find_element(*self.become_instructor_button)
     
@@ -61,12 +90,13 @@ class StudentPage:
     def getSubmitBecomeInstructor(self):
         return self.driver.find_element(*self.submit_become_instructor)
     
+    #profile
     def getProfile(self):
         return self.driver.find_element(*self.profile)
     
     def getLogoutButton(self):
         return self.driver.find_element(*self.logout_button)
-    
+    #forum
     def getForumButton(self):
         return self.driver.find_element(*self.forum_button)
     
@@ -84,16 +114,86 @@ class StudentPage:
     
     def getQuestionInput(self):
         return self.driver.find_element(*self.question_input)
-
-    def doLogout(self):
-        profile_element = self.getProfile()
-        actions = ActionChains(self.driver)
-        actions.move_to_element(profile_element).perform() 
-        logout_button = self.getLogoutButton()
-        logout_button.click()
         
     def getProfessionalTitleBecomeInstructor(self):
         return self.driver.find_element(*self.professional_title_become_instructor)
+    #blogs
+    def getBlogsDropdown(self):
+        return self.driver.find_element(*self.pages_dropdown)
+    
+    def getBlogsButton(self):
+        return self.driver.find_element(*self.blogs_button)
+    
+    def getBlog(self, title):
+        blog_xpath = self.blog.format(title)  # Format the xpath with the provided title
+        return self.driver.find_element(By.XPATH, blog_xpath)
+    
+    def getBlogReplyInput(self):
+        return self.driver.find_element(*self.blog_reply_input)
+    
+    def getBlogReplySubmit(self):
+        return self.driver.find_element(*self.blog_reply_submit)
+    
+    def getChatReplyInput(self):
+        return self.driver.find_element(*self.chat_reply_input)
+    
+    def getChatReplySubmit(self):
+        return self.driver.find_element(*self.chat_reply_submit)
+    
+    def getChatsButton(self):
+        return self.driver.find_element(*self.chats_button)
+    
+    def getChat(self, username="hehe", course_title="Intro"):
+        chat_locator = (By.XPATH, self.chat_xpath.format(username, course_title))
+        return self.driver.find_element(*chat_locator)
+    #discussions
+    def getMyLearningButton(self):
+        return self.driver.find_element(*self.my_learning_button)
+    
+    def getCourseViewButton(self, row=1):
+        course_xpath = (By.XPATH, self.course_view_button.format(row))
+        return self.driver.find_element(*course_xpath)
+    
+    def getDiscussionsButton(self):
+        return self.driver.find_element(*self.discussions_button)
+    
+    def getDiscussionsCreateButton(self):
+        return self.driver.find_element(*self.discussions_create_button)
+    
+    def getDiscussionsContentInput(self):
+        return self.driver.find_element(*self.discussions_content_input)
+    
+    def getDiscussionsSubmitButton(self):
+        return self.driver.find_element(*self.discussions_submit_button)
+    #reviews
+    def getReviewsButton(self):
+        return self.driver.find_element(*self.reviews_button)
+    
+    def getReviewsWriteButton(self):
+        return self.driver.find_element(*self.reviews_write_button)
+    
+    def getReviewsFeedbackInput(self):
+        return self.driver.find_element(*self.reviews_feedback_input)
+    
+    def getReviewsSubmitButton(self):
+        return self.driver.find_element(*self.reviews_submit_button)
+    
+    def getReviewsStar(self, rating=4):
+        """
+        Get the star rating element for the specified rating (1-5)
+        :param rating: Rating value between 1 and 5
+        :return: WebElement for the specified star rating
+        """
+        if not 1 <= rating <= 5:
+            raise ValueError("Rating must be between 1 and 5")
+        star_locator = (By.XPATH, self.reviews_star_template.format(rating))
+        return self.driver.find_element(*star_locator)
+    
+    def doLogout(self):
+        self.getProfile().click()
+        time.sleep(2)
+        self.getLogoutButton().click()
+        
 
     def doRequestInstructor(self, first_name, last_name, phone_number, address, cv, bio, title):
         self.getBecomeInstructorNav().click()
@@ -115,3 +215,163 @@ class StudentPage:
         self.getCategoryInput().send_keys(category)
         self.getQuestionInput().send_keys(question)
         self.getSubmitQuestionButton().click()
+        time.sleep(2)
+
+    def goToBlogs(self,content,title):
+        action = ActionChains(self.driver)
+        action.move_to_element(self.driver.find_element(*self.pages_dropdown)).click(self.driver.find_element(*self.blogs_button)).perform()
+        time.sleep(2)
+        
+        # Wait for blog to be present and scroll to it
+        wait = WebDriverWait(self.driver, 10)
+        blog_element = wait.until(EC.presence_of_element_located((By.XPATH, self.blog.format(title))))
+        
+        # Scroll the blog into view
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", blog_element)
+        time.sleep(2)  # Wait for scroll to complete
+
+        # Wait for element to be clickable after scroll
+        blog_element = wait.until(EC.element_to_be_clickable((By.XPATH, self.blog.format(title))))
+        blog_element.click()
+        time.sleep(2)  # Wait for page to load after click
+        
+        # Wait for reply input to be present and scroll to it
+        reply_input = wait.until(EC.presence_of_element_located(self.blog_reply_input))
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", reply_input)
+        time.sleep(2)
+        
+        # Wait for input to be clickable and enter text
+        reply_input = wait.until(EC.element_to_be_clickable(self.blog_reply_input))
+        reply_input.clear()
+        reply_input.send_keys(content)
+        
+        # Wait for submit button and scroll if needed
+        submit_button = wait.until(EC.presence_of_element_located(self.blog_reply_submit))
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", submit_button)
+        time.sleep(2)
+        
+        # Try to click using JavaScript if normal click fails
+        try:
+            submit_button = wait.until(EC.element_to_be_clickable(self.blog_reply_submit))
+            submit_button.click()
+        except:
+            # Fallback to JavaScript click
+            self.driver.execute_script("arguments[0].click();", submit_button)
+        
+        time.sleep(2)
+        
+    def goToChats(self, content, username="hehe", course_title="Intro"):
+        action = ActionChains(self.driver)
+        action.move_to_element(self.driver.find_element(*self.profile)).click(self.driver.find_element(*self.chats_button)).perform()
+        time.sleep(2)
+        
+        # Use the parameterized getChat method
+        self.getChat(username, course_title).click()
+        time.sleep(2)  # Wait for chat to load
+        
+        # Scroll to bottom of chat container
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(2)  # Wait for scroll to complete
+        
+        # Wait for elements to be present and interactable
+        wait = WebDriverWait(self.driver, 10)
+        chat_input = wait.until(EC.element_to_be_clickable(self.chat_reply_input))
+        submit_button = wait.until(EC.element_to_be_clickable(self.chat_reply_submit))
+        
+        chat_input.send_keys(content)
+        submit_button.click()
+        time.sleep(2)
+    
+    def goToDiscussions(self, content, row=1):
+        action = ActionChains(self.driver)
+        action.move_to_element(self.driver.find_element(*self.profile)).click(self.driver.find_element(*self.my_learning_button)).perform()
+        time.sleep(2)
+        
+        # Wait and scroll for course view button
+        wait = WebDriverWait(self.driver, 10)
+        course_button = wait.until(EC.presence_of_element_located((By.XPATH, self.course_view_button.format(row))))
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", course_button)
+        time.sleep(2)
+        course_button = wait.until(EC.element_to_be_clickable((By.XPATH, self.course_view_button.format(row))))
+        course_button.click()
+        time.sleep(2)
+        
+        # Wait and scroll for discussions button
+        discussions_button = wait.until(EC.presence_of_element_located(self.discussions_button))
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", discussions_button)
+        time.sleep(2)
+        discussions_button = wait.until(EC.element_to_be_clickable(self.discussions_button))
+        discussions_button.click()
+        time.sleep(2)
+        
+        # Wait and scroll for create button
+        create_button = wait.until(EC.presence_of_element_located(self.discussions_create_button))
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", create_button)
+        time.sleep(2)
+        create_button = wait.until(EC.element_to_be_clickable(self.discussions_create_button))
+        create_button.click()
+        
+        # Wait and scroll for content input
+        content_input = wait.until(EC.presence_of_element_located(self.discussions_content_input))
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", content_input)
+        time.sleep(2)
+        content_input = wait.until(EC.element_to_be_clickable(self.discussions_content_input))
+        content_input.clear()
+        content_input.send_keys(content)
+        
+        # Wait and scroll for submit button
+        submit_button = wait.until(EC.presence_of_element_located(self.discussions_submit_button))
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", submit_button)
+        time.sleep(2)
+        submit_button = wait.until(EC.element_to_be_clickable(self.discussions_submit_button))
+        submit_button.click()
+        
+        time.sleep(2)
+    
+    def doReview(self, row=1,star=1,feedback="test"):
+        action = ActionChains(self.driver)
+        action.move_to_element(self.driver.find_element(*self.profile)).click(self.driver.find_element(*self.my_learning_button)).perform()
+        time.sleep(2)
+        
+        # Wait and scroll for course view button
+        wait = WebDriverWait(self.driver, 10)
+        course_button = wait.until(EC.presence_of_element_located((By.XPATH, self.course_view_button.format(row))))
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", course_button)
+        time.sleep(2)
+        course_button = wait.until(EC.element_to_be_clickable((By.XPATH, self.course_view_button.format(row))))
+        course_button.click()
+        time.sleep(2)
+        
+        # Wait and scroll for reviews button
+        reviews_button = wait.until(EC.presence_of_element_located(self.reviews_button))
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", reviews_button)
+        time.sleep(2)
+        reviews_button = wait.until(EC.element_to_be_clickable(self.reviews_button))
+        reviews_button.click()
+        time.sleep(2)
+        
+        # Wait and scroll for write review button
+        write_review_button = wait.until(EC.presence_of_element_located(self.reviews_write_button))
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", write_review_button)
+        time.sleep(2)
+        write_review_button = wait.until(EC.element_to_be_clickable(self.reviews_write_button))
+        write_review_button.click()
+        time.sleep(2)
+        
+        # Wait and scroll for rating input
+        self.getReviewsStar(star).click()
+        time.sleep(2)
+        
+        # Wait for feedback input field and clear any existing text
+        feedback_input = wait.until(EC.presence_of_element_located(self.reviews_feedback_input))
+        feedback_input.clear()  # Clear any existing text
+        feedback_input.send_keys(feedback)  # Type the new feedback
+        time.sleep(1)  # Short pause to ensure text is entered
+        
+        # Wait and scroll for submit button
+        submit_button = wait.until(EC.presence_of_element_located(self.reviews_submit_button))
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", submit_button)
+        time.sleep(2)
+        submit_button = wait.until(EC.element_to_be_clickable(self.reviews_submit_button))
+        submit_button.click()
+        time.sleep(2)

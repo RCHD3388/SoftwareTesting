@@ -10,7 +10,7 @@ class AdminPage:
         self.pendingInstructor = (By.XPATH, "//*[@id='sidebar-menu']/li[4]/ul/li[1]/a")
         self.pendingInstructorApproveButton = (By.XPATH, "//*[@id='customers-table']/tbody/tr/td[7]/div/a[1]")
         self.profile = (By.XPATH, "//*[@id='dropdownUser']")
-        self.logoutButton = (By.XPATH, "/html/body/div[3]/header/div/div/div/div/div[2]/ul/li[3]/ul/li[3]/a/span")
+        self.logoutButton = (By.XPATH, "/html/body/div[3]/header/div/div/div/div/div[2]/ul/li[3]/ul/li[3]/a/span")#absoulute
         #forum nav
         self.forum_button = (By.XPATH, "//*[@id='sidebar-menu']/li[25]/a")
         self.forum_category = (By.XPATH, "//*[@id='sidebar-menu']/li[25]/ul/li/a/span")
@@ -74,6 +74,5 @@ class AdminPage:
     def doInputForumCategory(self, title, subtitle, status):
         self.getForumCategoryTitle().send_keys(title)
         self.getForumCategorySubtitle().send_keys(subtitle)
-        self.getForumCategoryStatus().send_keys(status)
-    
+        self.getForumCategoryStatus().send_keys(status)    
         self.getForumCategorySubmit().click()
