@@ -27,6 +27,12 @@ class StudentPage:
     country_select = (By.XPATH, "//*[@id='country_id']/option[2]")
     pay_paypal = (By.XPATH, "//div[@class='regular-btn']//button[@type='submit']")
 
+    # scroll to x and y
+    def scrollToXY(self, x, y):
+        self.driver.execute_script(f"window.scrollBy({x}, window.innerHeight * {y} /100);")
+        
+    def get_arial_label(self, placeholder):
+        return (By.XPATH, f"//button[@aria-label='{placeholder}']")
     def get_hidden_element(self):
         return (By.NAME, "country_id")
 

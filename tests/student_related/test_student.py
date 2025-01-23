@@ -43,16 +43,19 @@ class TestStudent(BaseClass):
       file_path = os.path.abspath(pdf)
       file_path =file_path.replace("\\", "\\\\")
       time.sleep(0.5)
-      studentPage = studentPage.enter_insert_cv(file_path)
+      studentPage.enter_insert_cv(file_path)
       time.sleep(0.5)
 
       # ActionChains(self.driver).move_to_element(self.driver.find_element(*studentPage.input_bio)).perform()
       # time.sleep(2)
 
+      studentPage.scrollToXY(0,30)
+      time.sleep(1)
+
       studentPage.getInsertTextarea(bio)
       time.sleep(0.5)
 
-      studentPage.click_insert_button(placeholder)
+      studentPage.click_insert_button("Submit")
       time.sleep(2)
 
     @pytest.mark.parametrize("email, password", [
@@ -126,7 +129,7 @@ class TestStudent(BaseClass):
       time.sleep(2)
       ActionChains(self.driver).move_to_element(self.driver.find_element(*studentPage.getInsertButton("Business"))).perform()
       time.sleep(2)
-      studentPage.click_menu("Gatau")
+      studentPage.click_menu("gfdgdfdfggdf")
       time.sleep(2)
       ActionChains(self.driver).move_to_element(self.driver.find_element(*studentPage.getMenuh6("This Course Includes"))).perform()
       # studentPage.click_menu("Go to Course")
@@ -142,7 +145,13 @@ class TestStudent(BaseClass):
       studentPage.click_insert_field_name("proceed_to_checkout")
       time.sleep(2)
 
-      ActionChains(self.driver).move_to_element(self.driver.find_element(*studentPage.getInsertButton("Pay"))).perform()
+      try:
+        studentPage.get_arial_label("Close").click()
+        time.sleep(2)
+      except:
+        time.sleep(2)
+      
+      ActionChains(self.driver).move_to_element(self.driver.find_element(*studentPage.getInsertField("phone_number"))).perform()
       try:
         # Cari elemen dengan name="country_id"
         hidden_element = studentPage.get_hidden_element()
