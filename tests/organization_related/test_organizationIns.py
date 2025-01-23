@@ -139,7 +139,7 @@ class TestOrganizationIns(BaseClass):
     def nextWindows(self):
       windows = self.driver.window_handles
       self.driver.switch_to.window(windows[-1])
-
+    
     @pytest.mark.parametrize("email, password", [
       PageData.getTestData("LoginData", "testcase2")
     ])
