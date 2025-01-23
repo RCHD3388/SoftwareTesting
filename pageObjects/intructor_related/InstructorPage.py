@@ -196,7 +196,12 @@ class InstructorPage():
 
     def click_button_consultation_day_status(self):
         self.driver.find_element(*self.getChildSidebarButtonByIndex("Off day","last()")).click()
-    
+
+    def click_button_view_student(self, student_name, course_name):
+        self.driver.find_element(By.XPATH, f"//tr[td[contains(text(), '{student_name}')] and td[contains(text(), '{course_name}')] ]//button[text()='View']").click()
+
+    def get_student_info(self,tag,type,content):
+        return self.driver.find_element(*self.getElementGeneral(tag,type,content)).text
 
     def verify_waiting_toreview(self):
         try:
