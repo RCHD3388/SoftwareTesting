@@ -66,4 +66,12 @@ class TestInstructorViewStudents(BaseClass):
       assert instructorPage.get_student_info("div","class","all-student-info-value col-sm-6 col-md-6 col-lg-8 course_name") == expected_course
       delay(3)
 
+      # close modal
+      instructorPage.click_button_pop_up("class",'btn-close')
+      delay(1)
+
+      # logout
+      landingPage.doLogout()
+      delay(1)
+
       

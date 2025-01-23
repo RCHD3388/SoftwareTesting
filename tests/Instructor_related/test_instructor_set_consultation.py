@@ -142,18 +142,19 @@ class TestInstructorSetConsultation(BaseClass):
       expected_message = "Slot Added successfully"
       assert actual_message == expected_message, f"Expected: {expected_message}, but got: {actual_message}"
 
-      # scroll ke bawah
-      instructorPage.scrollToXY(0, 130)
-      delay(1)
-
       # ubah status slot menjadi available
-      instructorPage.click_button_consultation_day_status()
-      delay()
+      if instructorPage.get_button_consultation_day_status_text() == "Off day":
+        # scroll ke bawah
+        instructorPage.scrollToXY(0, 130)
+        delay(1)
 
-      actual_message = instructorPage.getToastMessage()
-      delay()
-      expected_message = "Status Change Successfully"
-      assert actual_message == expected_message, f"Expected: {expected_message}, but got: {actual_message}"
+        instructorPage.click_button_consultation_day_status()
+        delay()
+
+        actual_message = instructorPage.getToastMessage()
+        delay()
+        expected_message = "Status Change Successfully"
+        assert actual_message == expected_message, f"Expected: {expected_message}, but got: {actual_message}"
 
       # scroll ke bawah
       instructorPage.scrollToXY(0, 130)
@@ -163,7 +164,10 @@ class TestInstructorSetConsultation(BaseClass):
       instructorPage.click_button_pop_up("class","theme-btn theme-button1 green-theme-btn default-hover-btn saturdayViewSlot viewSlot")
       delay(5)
 
-
-        
+      instructorPage.click_button_close_consultation_view_slot()
+      delay(1)
+      
+      # logout
+      landingPage.doLogout()
       
       time.sleep(2)

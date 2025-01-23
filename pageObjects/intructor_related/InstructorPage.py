@@ -47,7 +47,8 @@ class InstructorPage():
         return (By.XPATH, f"//div[@class='chat-message {type}'][1]")
     def getDiscussionChatReplyInput(self,type, placeholder):
         return (By.XPATH, f"//input[@{type}='{placeholder}'][last()]")
-   
+    def getButtonConsultationDayStatus(self):
+        return (By.XPATH, "//button[contains(@class,'saturdayAddSlot')]/following-sibling::a[contains(@class,'offDayDeactive')]")
         
     def getToastMessage(self):
         wait = WebDriverWait(self.driver, 10)
@@ -195,8 +196,15 @@ class InstructorPage():
         self.driver.find_element(By.XPATH, "//div[@class='col d-flex justify-content-between']//button[@type='submit'][normalize-space()='Save']").click()
 
     def click_button_consultation_day_status(self):
-        self.driver.find_element(*self.getChildSidebarButtonByIndex("Off day","last()")).click()
+        self.driver.find_element(*self.getButtonConsultationDayStatus()).click()
 
+    def get_button_consultation_day_status_text(self):
+        return self.driver.find_element(*self.getButtonConsultationDayStatus()).text
+    
+    def click_button_close_consultation_view_slot(self):
+        self.driver.find_element(By.XPATH, "//div[@id='viewSlotModal']//button[@aria-label='Close']").click()   
+    
+    #  view all students
     def click_button_view_student(self, student_name, course_name):
         self.driver.find_element(By.XPATH, f"//tr[td[contains(text(), '{student_name}')] and td[contains(text(), '{course_name}')] ]//button[text()='View']").click()
 
