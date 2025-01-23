@@ -146,7 +146,7 @@ class TestStudent(BaseClass):
       time.sleep(2)
 
       try:
-        studentPage.get_arial_label("Close").click()
+        studentPage.click_arial_label("Close")
         time.sleep(2)
       except:
         time.sleep(2)
@@ -154,7 +154,7 @@ class TestStudent(BaseClass):
       ActionChains(self.driver).move_to_element(self.driver.find_element(*studentPage.getInsertField("phone_number"))).perform()
       try:
         # Cari elemen dengan name="country_id"
-        hidden_element = studentPage.get_hidden_element()
+        hidden_element = self.driver.find_element(*studentPage.get_hidden_element())
 
         # Pastikan elemen ditemukan
         assert hidden_element is not None
@@ -207,4 +207,116 @@ class TestStudent(BaseClass):
         studentPage.click_button_byid("payment-submit-btn")
         time.sleep(10)
 
-      
+    @pytest.mark.parametrize("email, password", [
+    PageData.getTestData("LoginData", "testcase3")
+    ])
+    def test_buy_consultation(self, email, password):
+        landingPage = LandingPage(self.driver)
+        landingPage.doLogin(email, password)
+        studentPage = StudentPage(self.driver)
+
+        ActionChains(self.driver).move_to_element(self.driver.find_element(*studentPage.profile_img)).perform()
+        time.sleep(2)
+
+        studentPage.click_menu("My Consultation")
+        time.sleep(2)
+
+        studentPage.click_menu("Browse More Consultation")
+        time.sleep(2)
+
+        studentPage.scrollToXY(0, 70);
+        time.sleep(2)
+
+        studentPage.click_insert_button("Book Schedule")
+        time.sleep(2)
+
+        studentPage.enter_insert_field("datepicker","25")
+        time.sleep(2)
+
+        studentPage.click_menu("25")
+        time.sleep(5)
+
+        studentPage.click_label("In Person")
+        time.sleep(2)
+
+        studentPage.click_label("10:08 AM - 12:08 AM")
+        time.sleep(2)
+
+        studentPage.click_insert_button("Make Payment")
+        time.sleep(2)
+
+        studentPage.scrollToXY(0,50)
+        time.sleep(2)
+
+        studentPage.click_insert_field_name("proceed_to_checkout")
+        time.sleep(2)
+
+        try:
+          studentPage.click_arial_label("Close").click()
+          time.sleep(2)
+        except:
+          time.sleep(2)
+        time.sleep(5)
+        studentPage.scrollToXY(0,50)
+        time.sleep(5)
+        try:
+          # Cari elemen dengan name="country_id"
+          hidden_element = studentPage.get_hidden_element()
+
+          # Pastikan elemen ditemukan
+          assert hidden_element is not None
+          print("test")
+
+          # Periksa apakah elemen adalah hidden
+          assert hidden_element.get_attribute("type") == "hidden"
+          time.sleep(2)
+        except Exception as e:
+          studentPage.enter_insert_field("address", "AlamatTest")
+          studentPage.click_select_field("country_id")
+          time.sleep(2)
+          studentPage.combo_box_select("country_id", "2").click()
+          time.sleep(2)
+          studentPage.click_select_field("state_id")
+          time.sleep(2)
+          studentPage.combo_box_select("state_id", 2).click()
+          time.sleep(2)
+          studentPage.click_select_field("state_id")
+          time.sleep(2)
+          studentPage.combo_box_select("state_id", 2).click()
+          time.sleep(2)
+          studentPage.enter_insert_field("postal_code", "032949234")
+          time.sleep(2)
+        finally:
+          ActionChains(self.driver).move_to_element(self.driver.find_element(*studentPage.get_span_normalize_space("Instamojo"))).perform()
+          time.sleep(2)
+
+          studentPage.click_checkbox_field("paypalPayment")
+
+          time.sleep(2)
+
+          studentPage.click_pay_paypal()
+
+          time.sleep(2)
+
+          studentPage.enter_insert_field("email", "sb-vsrrv29812931@personal.example.com")
+
+          time.sleep(2)
+
+          studentPage.click_button_byid("btnNext")
+          time.sleep(2)
+
+          studentPage.enter_insert_field("password", "*XUe5$Z1")
+          time.sleep(2)
+
+          studentPage.click_button_byid("btnLogin")
+          time.sleep(2)
+
+          studentPage.click_button_byid("payment-submit-btn")
+          time.sleep(10)
+
+
+
+
+
+
+

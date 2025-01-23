@@ -30,7 +30,7 @@ class StudentPage:
     # scroll to x and y
     def scrollToXY(self, x, y):
         self.driver.execute_script(f"window.scrollBy({x}, window.innerHeight * {y} /100);")
-        
+
     def get_arial_label(self, placeholder):
         return (By.XPATH, f"//button[@aria-label='{placeholder}']")
     def get_hidden_element(self):
@@ -62,6 +62,9 @@ class StudentPage:
     
     def getMenu(self, placeholder):
         return(By.XPATH, f"//a[normalize-space()='{placeholder}']")
+    
+    def get_label(self, placeholder):
+        return(By.XPATH, f"//label[normalize-space()='{placeholder}']")
 
     def getMenuh6(self, placeholder):
         return(By.XPATH, f"//h6[normalize-space()='{placeholder}']")
@@ -122,4 +125,8 @@ class StudentPage:
     def click_select_field(self, placeholder):
         self.driver.find_element(*self.getSelectField(placeholder)).click()
 
-    
+    def click_label(self, placeholder):
+        self.driver.find_element(*self.get_label(placeholder)).click()
+
+    def click_arial_label(self, placeholder):
+        self.driver.find_element(*self.get_arial_label(placeholder)).click()
