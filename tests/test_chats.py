@@ -13,13 +13,13 @@ class TestChats(BaseClass):
     @pytest.mark.parametrize("email, password", [
         PageData.getTestData("LoginData", "testcase3")
     ])
-    @pytest.mark.parametrize("content", [
+    @pytest.mark.parametrize("content, username, course", [
         PageData.getTestData("Chats", "testcase1")
     ])
-    def test_chats(self, setup, email, password, content):
+    def test_chats(self, setup, email, password, content, username, course):
         landingPage = LandingPage(self.driver)
         landingPage.doLogin(email, password)
         time.sleep(2)
         studentPage = StudentPage(self.driver)
-        studentPage.goToChats(content)
+        studentPage.goToChats(content, username, course)
         time.sleep(2)

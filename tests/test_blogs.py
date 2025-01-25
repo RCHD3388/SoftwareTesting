@@ -25,3 +25,5 @@ class TestBlogs(BaseClass):
         time.sleep(2)
         studentPage.goToBlogs(content,title)
         time.sleep(2)
+        studentPage.doLogout()
+        time.sleep(2)

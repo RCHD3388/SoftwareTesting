@@ -133,7 +133,7 @@ class StudentPage:
     
     def getBlogReplySubmit(self):
         return self.driver.find_element(*self.blog_reply_submit)
-    
+    #chats  
     def getChatReplyInput(self):
         return self.driver.find_element(*self.chat_reply_input)
     
@@ -143,9 +143,10 @@ class StudentPage:
     def getChatsButton(self):
         return self.driver.find_element(*self.chats_button)
     
-    def getChat(self, username="hehe", course_title="Intro"):
-        chat_locator = (By.XPATH, self.chat_xpath.format(username, course_title))
-        return self.driver.find_element(*chat_locator)
+    def getChat(self, sender="hehe", course_name="Intro"):
+        return (By.XPATH, f"//span[contains(@class,'user-name') and contains(text(), '{sender}')]/following-sibling::span[contains(@class, 'course-title')]//span[@class='title' and contains(text(), '{course_name}')]")
+    
+        
     #discussions
     def getMyLearningButton(self):
         return self.driver.find_element(*self.my_learning_button)
@@ -260,13 +261,13 @@ class StudentPage:
         
         time.sleep(2)
         
-    def goToChats(self, content, username="hehe", course_title="Intro"):
+    def goToChats(self, content, username="hehe", course="Intro"):
         action = ActionChains(self.driver)
         action.move_to_element(self.driver.find_element(*self.profile)).click(self.driver.find_element(*self.chats_button)).perform()
         time.sleep(2)
         
         # Use the parameterized getChat method
-        self.getChat(username, course_title).click()
+        self.getChat(username, course).click()
         time.sleep(2)  # Wait for chat to load
         
         # Scroll to bottom of chat container
