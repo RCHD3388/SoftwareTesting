@@ -13,18 +13,52 @@ class AdminPage:
     )
 
     manage_instructor = (By.XPATH,"(//a[@class='has-arrow'])[3]")
+    manage_student = (By.XPATH,"(//a[@class='has-arrow'])[5]")
     add_instructor = (
         By.CSS_SELECTOR,"a[href='http://localhost:8000/admin/instructor/create']"
     )
     manage_course = (By.XPATH,"(//a[@class='has-arrow'])[1]")
+
+    close_cookie_button = (By.CLASS_NAME,"btn-close front-close-btn")
     
     review_pending = (By.CSS_SELECTOR,"a[href='http://localhost:8000/admin/course/review-pending']")
+    all_instructors = (By.XPATH,"//span[normalize-space()='All Instructors']")
+    edit_instructor = (By.XPATH,"//tr[@class='removable-item odd']//img[@alt='edit']")
+    delete_instructor = (By.XPATH,"//tr[@class='removable-item odd']//img[@alt='trash']")
+    confirm_delete = (By.XPATH,"//button[normalize-space()='Yes, Delete It!']")
+    all_organizations = (By.XPATH,"//span[normalize-space()='All Organizations']")
+    manage_coupon = (By.XPATH,"//a[@class='has-arrow'])[7]")
+    all_students = (By.XPATH,"//span[normalize-space()='All Student']")
+    add_student = (By.XPATH,"//span[normalize-space()='Add Student']")
+    
+    def click_manage_student(self):
+        return self.driver.find_element(*self.manage_student).click()
+    def click_all_students(self):
+        return self.driver.find_element(*self.all_students).click()
+    def click_add_student(self):
+        return self.driver.find_element(*self.add_student).click()
+    
     
     def getElement(self,tag,type,content):
         return (By.XPATH, f"//{tag}[@{type}='{content}']")
-    
+    def click_delete_instructor(self):
+        return self.driver.find_element(*self.delete_instructor).click()
     def clickElement(self,tag,type,content):
         return self.driver.find_element(*self.getElement(tag,type,content)).click()
+    def click_confirm_delete(self):
+        return self.driver.find_element(*self.confirm_delete).click()
+    def click_close_cookie(self):
+        return self.driver.find_element(*self.close_cookie_button).click()
+
+    def click_all_instructors(self):
+        return self.driver.find_element(*self.all_instructors).click()
+
+    def scroll_to_element(self, element):
+        self.driver.execute_script("arguments[0].scrollIntoView();", element)
+    def click_all_organizations(self):
+        action = ActionChains(self.driver)
+        action.move_to_element(self.driver.find_element(*self.add_organization)).perform()
+        return self.driver.find_element(*self.all_organizations).click()
 
     def getInsFieldSelect(self, type, placeholder):
         return (By.XPATH, f"//select[@{type}='{placeholder}']")
@@ -39,6 +73,7 @@ class AdminPage:
         return (By.XPATH, f"//textarea[@name='{placeholder}']")
     
     def click_manage_organization(self):
+        ActionChains(self.driver).move_to_element(self.driver.find_element(*self.manage_organization)).perform()
         self.driver.find_element(*self.manage_organization).click()
     def click_add_organization(self):
         self.driver.find_element(*self.add_organization).click()
@@ -53,6 +88,8 @@ class AdminPage:
         ActionChains(self.driver).move_to_element(self.driver.find_element(*self.getInsButton(placeholder))).perform()
         self.driver.find_element(*self.getInsButton(placeholder)).click()
 
+    def click_all_instructors(self):
+        self.driver.find_element(*self.all_instructors).click()
     def click_manage_instructor(self):
         self.driver.find_element(*self.manage_instructor).click()
     def click_add_instructor(self):
@@ -61,6 +98,11 @@ class AdminPage:
         self.driver.find_element(*self.manage_course).click()
     def click_review_pending(self):
         self.driver.find_element(*self.review_pending).click()
+    
+    def getElemenet(self,tag,type,content):
+        return (By.XPATH, f"//{tag}[{type}='{content}']")
+    def click_element(self,tag,type,content):
+        return self.driver.find_element(*self.getElement(tag,type,content)).click()
     
     def click_approve_button(self):
     # Check if the element exists
@@ -75,7 +117,8 @@ class AdminPage:
             # If the element does not exist
             print("Approve button does not exist.")
             return False
-    
+    def click_edit_instructor(self):
+        self.driver.find_element(*self.edit_instructor).click()
 
 
     

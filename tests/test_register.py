@@ -13,7 +13,7 @@ class TestRegister(BaseClass):
     
     def doRegister(self, email, code, first_name, mobile_number, last_name, password): 
       landingPage = LandingPage(self.driver)
-      time.sleep(0.5)    
+      time.sleep(0.5)     
 
       # click go to login page
       landingPage.click_login_button()
