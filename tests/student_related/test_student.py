@@ -14,7 +14,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 class TestStudent(BaseClass):
     
     @pytest.mark.parametrize("email, password", [
-      PageData.getTestData("LoginData", "testcase3")
+      PageData.getTestData("LoginData", "testcase4")
     ])
 
     @pytest.mark.parametrize("pdf, professional_title, address, bio", [
@@ -59,7 +59,7 @@ class TestStudent(BaseClass):
       time.sleep(2)
 
     @pytest.mark.parametrize("email, password", [
-      PageData.getTestData("LoginData", "testcase3")
+      PageData.getTestData("LoginData", "testcase4")
     ])
     def test_enroll_free_course(self, email, password):
       landingPage = LandingPage(self.driver)
@@ -102,7 +102,7 @@ class TestStudent(BaseClass):
 
 
     @pytest.mark.parametrize("email, password", [
-      PageData.getTestData("LoginData", "testcase3")
+      PageData.getTestData("LoginData", "testcase4")
     ])
     def test_enroll_paid_course(self, email, password):
       landingPage = LandingPage(self.driver)
@@ -208,7 +208,7 @@ class TestStudent(BaseClass):
         time.sleep(10)
 
     @pytest.mark.parametrize("email, password", [
-    PageData.getTestData("LoginData", "testcase3")
+    PageData.getTestData("LoginData", "testcase4")
     ])
     def test_buy_consultation(self, email, password):
         landingPage = LandingPage(self.driver)
