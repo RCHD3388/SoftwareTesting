@@ -119,7 +119,7 @@ class TestOrganizationIns(BaseClass):
       organizationPage.click_sidebar_head_button("2")
       time.sleep(0.5)
       organizationPage.click_sidebar_child_button("All Instructor")
-      time.sleep(0.5)
+      time.sleep(1)
       organizationPage.click_edit_ins_button()
       time.sleep(0.5)
 
@@ -148,7 +148,7 @@ class TestOrganizationIns(BaseClass):
     @pytest.mark.parametrize("image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output", [
       PageData.getTestData("OrganizationInstructorData", "testcase3"),
     ])
-    def test_organization_edit_instructor(self, email, password
+    def test_organization_view_instructor(self, email, password
       , image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output):
       landingPage = LandingPage(self.driver)
       organizationPage = OrganizationPage(self.driver)
@@ -164,7 +164,7 @@ class TestOrganizationIns(BaseClass):
       organizationPage.click_sidebar_child_button("All Instructor")
       time.sleep(1)
       organizationPage.click_detail_insstd(ins_email)
-      time.sleep(0.5)
+      time.sleep(1)
 
       self.nextWindows()
       time.sleep(1)

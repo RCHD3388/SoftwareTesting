@@ -151,9 +151,9 @@ class TestOrganizationIns(BaseClass):
       time.sleep(0.5)
 
       organizationPage.click_sidebar_head_button("3")
-      time.sleep(0.5)
+      time.sleep(1)
       organizationPage.click_sidebar_child_button("All Student")
-      time.sleep(0.5)
+      time.sleep(1)
       organizationPage.click_detail_insstd(ins_email)
       time.sleep(3)
 
