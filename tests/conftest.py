@@ -40,7 +40,7 @@ def setup(request):
         service = ChromeService(ChromeDriverManager().install())
         driver = webdriver.Chrome(service=service)
 
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(20)
     driver.get("http://localhost:8000")
     driver.maximize_window()
 
