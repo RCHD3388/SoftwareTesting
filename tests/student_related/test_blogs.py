@@ -6,23 +6,24 @@ import time
 
 from TestData.PageData import PageData
 from pageObjects.LandingPage import LandingPage
-from pageObjects.StudentPage import StudentPage
+from pageObjects.student_related.StudentPageOther import StudentPage
 from utilities.BaseClass import BaseClass
 
-class TestReviews(BaseClass):
+class TestBlogs(BaseClass):
+
     @pytest.mark.parametrize("email, password", [
-        PageData.getTestData("LoginData", "testcase3")
+        PageData.getTestData("LoginData", "testcase4")
     ])
-    @pytest.mark.parametrize("rating, review, row", [
-        PageData.getTestData("Review", "testcase1")
+    @pytest.mark.parametrize("content, title", [
+        PageData.getTestData("BlogReply", "testcase1")
     ])
-    def test_review(self, setup,email, password, rating, review, row):
+    def test_blogs(self, setup, email, password,content,title):
         landingPage = LandingPage(self.driver)
-        time.sleep(2)
         landingPage.doLogin(email, password)
         time.sleep(2)
         studentPage = StudentPage(self.driver)
-        studentPage.doReview(row,rating,review)
         time.sleep(2)
-        studentPage.doLogout()
+        studentPage.goToBlogs(content,title)
         time.sleep(2)
+        
+        assert studentPage.getBlogReplyToastMessage() == "Comment successfully."

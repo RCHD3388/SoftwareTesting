@@ -5,10 +5,10 @@ import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.support.ui import WebDriverWait
 from TestData.PageData import PageData
 from pageObjects.AdminPage import AdminPage
-from pageObjects.StudentPage import StudentPage
+from pageObjects.student_related.StudentPageOther import StudentPage
 from utilities.BaseClass import BaseClass
 from pageObjects.LandingPage import LandingPage
 
@@ -68,3 +68,5 @@ class TestForumDiscussion(BaseClass):
         
         studentPage.doLogout()
         time.sleep(2)
+        
+        assert studentPage.getForumToastMessage() == "Question created successfully."
