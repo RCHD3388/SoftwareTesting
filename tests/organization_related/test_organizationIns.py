@@ -160,14 +160,14 @@ class TestOrganizationIns(BaseClass):
       time.sleep(0.5)
 
       organizationPage.click_sidebar_head_button("2")
-      time.sleep(0.5)
+      time.sleep(1)
       organizationPage.click_sidebar_child_button("All Instructor")
-      time.sleep(1)
+      time.sleep(3)
       organizationPage.click_detail_insstd(ins_email)
-      time.sleep(1)
+      time.sleep(2)
 
       self.nextWindows()
-      time.sleep(1)
+      time.sleep(2)
       try:
           WebDriverWait(self.driver, 60).until(
               EC.presence_of_element_located((By.XPATH, f"//h5[normalize-space()='About {first_name} {last_name}']"))
@@ -179,11 +179,3 @@ class TestOrganizationIns(BaseClass):
           element_present = False
 
       assert element_present, "Element with the specified XPath was not found on the page"
-
-
-
-
-
-
-    
-

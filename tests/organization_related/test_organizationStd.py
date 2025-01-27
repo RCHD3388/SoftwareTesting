@@ -55,37 +55,37 @@ class TestOrganizationIns(BaseClass):
       time.sleep(wait_time)
 
       assert organizationPage.getToastMessage() == output
-    # @pytest.mark.parametrize("email, password", [
-    #   PageData.getTestData("LoginData", "testcase2")
-    # ])
-    # @pytest.mark.parametrize("image, first_name, last_name, ins_email, ins_password, area, mobile, country, state, city, address, postal, gender, about, output", [
-    #   # PageData.getTestData("OrganizationStudentData", "testcase1"),
-    #   PageData.getTestData("OrganizationStudentData", "testcase2"),
-    #   PageData.getTestData("OrganizationStudentData", "testcase3"),
-    #   PageData.getTestData("OrganizationStudentData", "testcase4"),
-    #   PageData.getTestData("OrganizationStudentData", "testcase5"),
-    #   PageData.getTestData("OrganizationStudentData", "testcase6"),
-    # ])
-    # def test_organization_add_student(self, email, password
-    #   , image, first_name, last_name, ins_email, ins_password, area, mobile, country, state, city, address, postal, gender, about, output):
-    #   landingPage = LandingPage(self.driver)
-    #   organizationPage = OrganizationPage(self.driver)
+    @pytest.mark.parametrize("email, password", [
+      PageData.getTestData("LoginData", "testcase2")
+    ])
+    @pytest.mark.parametrize("image, first_name, last_name, ins_email, ins_password, area, mobile, country, state, city, address, postal, gender, about, output", [
+      # PageData.getTestData("OrganizationStudentData", "testcase1"),
+      PageData.getTestData("OrganizationStudentData", "testcase2"),
+      PageData.getTestData("OrganizationStudentData", "testcase3"),
+      PageData.getTestData("OrganizationStudentData", "testcase4"),
+      PageData.getTestData("OrganizationStudentData", "testcase5"),
+      PageData.getTestData("OrganizationStudentData", "testcase6"),
+    ])
+    def test_organization_add_student(self, email, password
+      , image, first_name, last_name, ins_email, ins_password, area, mobile, country, state, city, address, postal, gender, about, output):
+      landingPage = LandingPage(self.driver)
+      organizationPage = OrganizationPage(self.driver)
 
-    #   landingPage.doLogin(email, password)
-    #   time.sleep(0.5)
+      landingPage.doLogin(email, password)
+      time.sleep(0.5)
 
-    #   organizationPage.click_organization_panel_button()
-    #   time.sleep(0.5)
+      organizationPage.click_organization_panel_button()
+      time.sleep(0.5)
 
-    #   organizationPage.click_sidebar_head_button("3")
-    #   time.sleep(0.5)
-    #   organizationPage.click_sidebar_child_button("Add Student")
-    #   time.sleep(0.5)
+      organizationPage.click_sidebar_head_button("3")
+      time.sleep(0.5)
+      organizationPage.click_sidebar_child_button("Add Student")
+      time.sleep(0.5)
 
-    #   # FIELD
-    #   self.createStudent(organizationPage, image, first_name, last_name, ins_email, ins_password, area, mobile, country, state, city, address, postal, gender, about, output)
+      # FIELD
+      self.createStudent(organizationPage, image, first_name, last_name, ins_email, ins_password, area, mobile, country, state, city, address, postal, gender, about, output)
       
-    #   time.sleep(0.5)
+      time.sleep(0.5)
     
     @pytest.mark.parametrize("email, password", [
       PageData.getTestData("LoginData", "testcase2")
