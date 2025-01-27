@@ -7,6 +7,7 @@ class StudentPage:
     def __init__(self, driver):
         self.driver = driver
 
+    next_date_picker_button = (By.XPATH, "//a[@class='ui-datepicker-next ui-corner-all']")
     become_instructor = (By.XPATH, "//a[normalize-space()='Become an Instructor']")
     become_instructor_toast_message = (By.XPATH, "(//button[@class='theme-btn theme-button1 theme-button3 mr-30'][normalize-space()='Become an Instructor'])[1]")
     become_instructor_toast_message_locator = (By.XPATH, "(//*[name()='polyline'])[1]")
@@ -38,6 +39,9 @@ class StudentPage:
 
     def combo_box_select (self, placeholder, index):
         return (By.XPATH, f"//*[@id='{placeholder}']/option[{index}]")
+    
+    def click_date_picker_button(self):
+        self.driver.find_element(*self.next_date_picker_button).click()
 
     def click_pay_paypal (self):
         self.driver.find_element(*self.pay_paypal).click()
@@ -96,6 +100,7 @@ class StudentPage:
         return (By.XPATH, f"//button[normalize-space()='{placeholder}']")
 
     def click_menu(self, placeholder):
+        # self.driver.execute_script("arguments[0].click();", self.driver.find_element(*self.getMenu(placeholder)))
         self.driver.find_element(*self.getMenu(placeholder)).click()
 
     def click_menu_h6(self, placeholder):
