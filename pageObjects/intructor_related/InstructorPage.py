@@ -67,6 +67,7 @@ class InstructorPage():
         
     #click element
     def click_element(self,tag,type,content):
+        self.scrollTo(self.driver.find_element(*self.getElementGeneral(tag,type,content)))
         return self.driver.find_element(*self.getElementGeneral(tag,type,content)).click()
 
     # function for instructor page
@@ -133,11 +134,10 @@ class InstructorPage():
         btnElement = self.driver.find_element(*self.getButton(placeholder))
         self.scrollTo(btnElement)
         btnElement.click()
-    def click_savepage4(self,placeholder):
-        element = self.driver.find_element(By.XPATH, "//a[normalize-space()='Live Class']")
+  
    
     def click_save_final(self):
-        return self.driver.find_element(By.XPATH, "//a[normalize-space()='Save and continue']").click()
+        return self.driver.find_element(By.XPATH, "//a[normalize-space()='Save and continue']").click() 
 
     # ============================= end template =============================
 
@@ -228,7 +228,8 @@ class InstructorPage():
         except Exception as e:
             print(f"Element not found: {e}")
             return False
-        
+    
+    
 
 
     

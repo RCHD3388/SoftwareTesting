@@ -19,7 +19,8 @@ class TestOrganizationIns(BaseClass):
     def createInstructor(self, organizationPage, image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output):
       file_path = os.path.abspath(image)
       wait_time = 0.2
-      file_path =file_path.replace("\\", "\\\\")
+      file_path = file_path.replace("\\", "/")
+      # file_path =file_path.replace("\\", "\\\\")
       time.sleep(wait_time)
       organizationPage.enter_ins_img_field(file_path)
       time.sleep(wait_time)
@@ -64,87 +65,45 @@ class TestOrganizationIns(BaseClass):
       time.sleep(wait_time)
 
       assert organizationPage.getToastMessage() == output
-    # @pytest.mark.parametrize("email, password", [
-    #   PageData.getTestData("LoginData", "testcase2")
-    # ])
-    # @pytest.mark.parametrize("image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output", [
-    #   PageData.getTestData("OrganizationInstructorData", "testcase1"),
-    #   PageData.getTestData("OrganizationInstructorData", "testcase2"),
-    #   PageData.getTestData("OrganizationInstructorData", "testcase3"),
-    #   PageData.getTestData("OrganizationInstructorData", "testcase4"),
-    #   PageData.getTestData("OrganizationInstructorData", "testcase5"),
-    #   PageData.getTestData("OrganizationInstructorData", "testcase6"),
-    # ])
-    # def test_organization_add_instructor(self, email, password
-    #   , image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output):
-    #   landingPage = LandingPage(self.driver)
-    #   organizationPage = OrganizationPage(self.driver)
-
-    #   landingPage.doLogin(email, password)
-    #   time.sleep(0.5)
-
-    #   organizationPage.click_organization_panel_button()
-    #   time.sleep(0.5)
-
-    #   organizationPage.click_sidebar_head_button("2")
-    #   time.sleep(0.5)
-    #   organizationPage.click_sidebar_child_button("Add Instructor")
-    #   time.sleep(0.5)
-
-    #   # FIELD
-    #   self.createInstructor(organizationPage, image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output)
-      
-    #   time.sleep(2)
-    
-    # @pytest.mark.parametrize("email, password", [
-    #   PageData.getTestData("LoginData", "testcase2")
-    # ])
-    # @pytest.mark.parametrize("image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output", [
-    #   PageData.getTestData("OrganizationInstructorData", "testcase1"),
-    #   PageData.getTestData("OrganizationInstructorData", "testcase2"),
-    #   PageData.getTestData("OrganizationInstructorData", "testcase7"),
-    # ])
-    # def test_organization_edit_instructor(self, email, password
-    #   , image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output):
-    #   landingPage = LandingPage(self.driver)
-    #   organizationPage = OrganizationPage(self.driver)
-
-    #   landingPage.doLogin(email, password)
-    #   time.sleep(0.5)
-
-    #   organizationPage.click_organization_panel_button()
-    #   time.sleep(0.5)
-
-    #   organizationPage.click_sidebar_head_button("2")
-    #   time.sleep(0.5)
-    #   organizationPage.click_sidebar_child_button("All Instructor")
-    #   time.sleep(0.5)
-    #   organizationPage.click_edit_ins_button()
-    #   time.sleep(0.5)
-
-    #   # field input edit
-    #   file_path = os.path.abspath(image)
-    #   wait_time = 0.2
-    #   file_path =file_path.replace("\\", "\\\\")
-    #   organizationPage.enter_ins_img_field(file_path)
-    #   organizationPage.enter_ins_field("Password", ins_password)
-    #   time.sleep(wait_time)
-    #   organizationPage.enter_ins_field("Phone Number", mobile)
-    #   time.sleep(wait_time)
-    #   organizationPage.click_ins_button("Upadate")
-    #   time.sleep(wait_time)
-
-    #   assert organizationPage.getToastMessage() == output
-
-    def nextWindows(self):
-      windows = self.driver.window_handles
-      self.driver.switch_to.window(windows[-1])
-
     @pytest.mark.parametrize("email, password", [
       PageData.getTestData("LoginData", "testcase2")
     ])
     @pytest.mark.parametrize("image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output", [
+      PageData.getTestData("OrganizationInstructorData", "testcase1"),
+      PageData.getTestData("OrganizationInstructorData", "testcase2"),
       PageData.getTestData("OrganizationInstructorData", "testcase3"),
+      PageData.getTestData("OrganizationInstructorData", "testcase4"),
+      PageData.getTestData("OrganizationInstructorData", "testcase5"),
+      PageData.getTestData("OrganizationInstructorData", "testcase6"),
+    ])
+    def test_organization_add_instructor(self, email, password
+      , image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output):
+      landingPage = LandingPage(self.driver)
+      organizationPage = OrganizationPage(self.driver)
+
+      landingPage.doLogin(email, password)
+      time.sleep(0.5)
+
+      organizationPage.click_organization_panel_button()
+      time.sleep(0.5)
+
+      organizationPage.click_sidebar_head_button("2")
+      time.sleep(0.5)
+      organizationPage.click_sidebar_child_button("Add Instructor")
+      time.sleep(0.5)
+
+      # FIELD
+      self.createInstructor(organizationPage, image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output)
+      
+      time.sleep(2)
+    
+    @pytest.mark.parametrize("email, password", [
+      PageData.getTestData("LoginData", "testcase2")
+    ])
+    @pytest.mark.parametrize("image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output", [
+      PageData.getTestData("OrganizationInstructorData", "testcase1"),
+      PageData.getTestData("OrganizationInstructorData", "testcase2"),
+      PageData.getTestData("OrganizationInstructorData", "testcase7"),
     ])
     def test_organization_edit_instructor(self, email, password
       , image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output):
@@ -160,12 +119,55 @@ class TestOrganizationIns(BaseClass):
       organizationPage.click_sidebar_head_button("2")
       time.sleep(0.5)
       organizationPage.click_sidebar_child_button("All Instructor")
+      time.sleep(1)
+      organizationPage.click_edit_ins_button()
       time.sleep(0.5)
-      organizationPage.click_detail_insstd(ins_email)
+
+      # field input edit
+      file_path = os.path.abspath(image)
+      wait_time = 0.2
+      file_path = file_path.replace("\\", "/")
+      # file_path =file_path.replace("\\", "\\\\")
+      organizationPage.enter_ins_img_field(file_path)
+      organizationPage.enter_ins_field("Password", ins_password)
+      time.sleep(wait_time)
+      organizationPage.enter_ins_field("Phone Number", mobile)
+      time.sleep(wait_time)
+      organizationPage.click_ins_button("Upadate")
+      time.sleep(wait_time)
+
+      assert organizationPage.getToastMessage() == output
+
+    def nextWindows(self):
+      windows = self.driver.window_handles
+      self.driver.switch_to.window(windows[-1])
+    
+    @pytest.mark.parametrize("email, password", [
+      PageData.getTestData("LoginData", "testcase2")
+    ])
+    @pytest.mark.parametrize("image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output", [
+      PageData.getTestData("OrganizationInstructorData", "testcase3"),
+    ])
+    def test_organization_view_instructor(self, email, password
+      , image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output):
+      landingPage = LandingPage(self.driver)
+      organizationPage = OrganizationPage(self.driver)
+
+      landingPage.doLogin(email, password)
+      time.sleep(0.5)
+
+      organizationPage.click_organization_panel_button()
+      time.sleep(0.5)
+
+      organizationPage.click_sidebar_head_button("2")
+      time.sleep(1)
+      organizationPage.click_sidebar_child_button("All Instructor")
       time.sleep(3)
+      organizationPage.click_detail_insstd(ins_email)
+      time.sleep(2)
 
       self.nextWindows()
-      time.sleep(1)
+      time.sleep(2)
       try:
           WebDriverWait(self.driver, 60).until(
               EC.presence_of_element_located((By.XPATH, f"//h5[normalize-space()='About {first_name} {last_name}']"))
@@ -177,11 +179,3 @@ class TestOrganizationIns(BaseClass):
           element_present = False
 
       assert element_present, "Element with the specified XPath was not found on the page"
-
-
-
-
-
-
-    
-

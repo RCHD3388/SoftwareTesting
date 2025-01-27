@@ -40,7 +40,7 @@ def setup(request):
         service = ChromeService(ChromeDriverManager().install())
         driver = webdriver.Chrome(service=service)
 
-    driver.implicitly_wait(10)
+    driver.implicitly_wait(20)
     driver.get("http://localhost:8000")
     driver.maximize_window()
 
@@ -49,48 +49,46 @@ def setup(request):
     driver.quit()
 
 # Fixture untuk mengambil screenshot jika terjadi kegagalan
-@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+@pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item):
     """
-        Extends the PyTest Plugin to take and embed screenshot in html report, whenever test fails.
-        :param item:
-        """
-    pytest_html = item.config.pluginmanager.getplugin('html')
+    Hook to capture screenshots when a test fails and embed them in the pytest HTML report.
+    """
     outcome = yield
     report = outcome.get_result()
-    extra = getattr(report, 'extra', [])
-
-    if report.when == 'call' or report.when == "setup":
-        xfail = hasattr(report, 'wasxfail')
-        if (report.skipped and xfail) or (report.failed and not xfail):
-            # file_name = report.nodeid.replace("::", "_") + ".png"
-            # _capture_screenshot(file_name)
-
+    extra = getattr(report, "extra", [])
+    
+    if report.when == "call" or report.when == "setup":
+        # Ambil driver dari fixture request
+        driver = getattr(item.instance, "driver", None)
+        if report.failed and driver:
+            # Pastikan folder untuk menyimpan screenshot dibuat
             current_dir = os.getcwd()
-            parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+            report_dir = os.path.join(current_dir, "screenshots")
+            os.makedirs(report_dir, exist_ok=True)
 
-            # Define the report directory as "newreports" in the parent directory
-            report_dir = os.path.join(parent_dir, "newreports", "screenshots")
-            os.makedirs(report_dir, exist_ok=True)  # Ensure the directory exists
-
-            # Define the screenshot file name and normalize it
+            # Nama file screenshot
             sanitized_name = report.nodeid.replace("::", "_").replace("/", "_").replace("\\", "_")
-            file_name = os.path.join(report_dir, sanitized_name + ".png")
+            screenshot_path = os.path.join(report_dir, f"{sanitized_name}.png")
 
-            # Capture the screenshot
-            _capture_screenshot(file_name)
+            # Ambil screenshot
+            driver.save_screenshot(screenshot_path)
+            print(f"Screenshot diambil: {screenshot_path}")
 
-            if file_name:
-                # relative_path = os.path.relpath(file_name, start=report_dir)
-                # relative_path = os.path.relpath(file_name, start=os.path.dirname(item.config.option.htmlpath))
-                sanitized_name = report.nodeid.replace("::", "_").replace("/", "_").replace("\\", "_")
-                relative_path = os.path.join("screenshots", sanitized_name + ".png")
-                print("relative_path= ", relative_path)
-                html = '<div><img src="%s" alt="screenshot" style="width:304px;height:228px;" ' \
-                       'onclick="window.open(this.src)" align="right"/></div>' % relative_path
+            # Ambil plugin pytest-html
+            pytest_html = item.config.pluginmanager.getplugin("html")
+
+            # Tambahkan screenshot ke laporan HTML
+            if pytest_html:
+                relative_path = f"./../../screenshots/{sanitized_name}.png"
+                html = (
+                    f'<div><img src="{relative_path}" alt="screenshot" '
+                    f'style="width:304px;height:228px;" '
+                    f'onclick="window.open(this.src)" align="right"/></div>'
+                )
                 extra.append(pytest_html.extras.html(html))
-        report.extra = extra
 
+    report.extra = extra
 
 def _capture_screenshot(name):
     driver.get_screenshot_as_file(name)
