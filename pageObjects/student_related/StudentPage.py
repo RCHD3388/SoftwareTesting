@@ -42,6 +42,9 @@ class StudentPage:
 
     def combo_box_select (self, placeholder, index):
         return (By.XPATH, f"//*[@id='{placeholder}']/option[{index}]")
+    
+    def click_combo_box_select (self, placeholder, index):
+        self.driver.find_element(*self.combo_box_select(placeholder,index)).click()
 
     def click_pay_paypal (self):
         self.driver.find_element(*self.pay_paypal).click()
