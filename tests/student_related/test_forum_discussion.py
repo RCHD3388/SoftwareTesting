@@ -15,10 +15,11 @@ class TestForumDiscussion:
     @pytest.mark.parametrize("student_email, student_password", [
         PageData.getTestData("LoginData", "testcase4")
     ])
-    @pytest.mark.parametrize("title, subtitle, status", [
-        PageData.getTestData("ForumDiscussion", "testcase1")
+    @pytest.mark.parametrize("title, subtitle, content", [
+        PageData.getTestData("ForumDiscussion", "testcase1"),
+        PageData.getTestData("ForumDiscussion", "testcase2")
     ])
-    def test_forum_discussion(self, setup, student_email, student_password, title, subtitle, status):
+    def test_forum_discussion(self, setup, student_email, student_password, title, subtitle, content):
         # Set up wait
         wait = WebDriverWait(self.driver, 10)
         landingPage = LandingPage(self.driver)
@@ -26,7 +27,7 @@ class TestForumDiscussion:
         studentPage = StudentPage(self.driver)
         landingPage.doLogin(student_email, student_password)
         
-        studentPage.doCreateForumQuestion(title, subtitle, status)
+        studentPage.doCreateForumQuestion(title, subtitle, content)
         time.sleep(2)
         
         assert studentPage.getForumToastMessage() == "Question created successfully."

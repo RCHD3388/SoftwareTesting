@@ -18,7 +18,7 @@ class TestForumDiscussion(BaseClass):
         PageData.getTestData("LoginData", "testcase1")
     ])
     @pytest.mark.parametrize("student_email, student_password", [
-        PageData.getTestData("LoginData", "testcase3")
+        PageData.getTestData("LoginData", "testcase4")
     ])
     @pytest.mark.parametrize("title, subtitle, status", [
         PageData.getTestData("ForumDiscussion", "testcase1")

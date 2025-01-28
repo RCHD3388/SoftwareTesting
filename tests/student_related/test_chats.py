@@ -14,7 +14,8 @@ class TestChats(BaseClass):
         PageData.getTestData("LoginData", "testcase4")
     ])
     @pytest.mark.parametrize("content, username, course", [
-        PageData.getTestData("Chats", "testcase1")
+        PageData.getTestData("Chats", "testcase1"),
+        PageData.getTestData("Chats", "testcase2"),
     ])
     def test_chats(self, setup, email, password, content, username, course):
         landingPage = LandingPage(self.driver)

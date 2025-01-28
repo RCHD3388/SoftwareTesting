@@ -26,5 +26,4 @@ class TestDiscussion(BaseClass):
         studentPage = StudentPage(self.driver)
         studentPage.goToDiscussions(content, row)
         time.sleep(2)
-        studentPage.goToDiscussionsFinalContent()
         assert studentPage.getDiscussionsFinalContent(index) == content

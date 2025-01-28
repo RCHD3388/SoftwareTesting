@@ -15,7 +15,8 @@ class TestBlogs(BaseClass):
         PageData.getTestData("LoginData", "testcase4")
     ])
     @pytest.mark.parametrize("content, title", [
-        PageData.getTestData("BlogReply", "testcase1")
+        PageData.getTestData("BlogReply", "testcase1"),
+        PageData.getTestData("BlogReply", "testcase2"),
     ])
     def test_blogs(self, setup, email, password,content,title):
         landingPage = LandingPage(self.driver)
