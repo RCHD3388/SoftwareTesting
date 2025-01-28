@@ -62,6 +62,13 @@ class LandingPage:
         return self.driver.find_element(*self.register_toast_message).text
     
     #  LOGOUT
+
+    profile_icon_admin = (By.XPATH, "//a[@id='dropdownUser']")
+
+    def click_button_profile_admin(self):
+        self.driver.find_element(*self.profile_icon_admin).click()
+        time.sleep(1)
+
     def click_button_profile(self):
         self.driver.find_element(*self.getElementGeneral("img","alt","user")).click()
         time.sleep(1)
@@ -97,6 +104,13 @@ class LandingPage:
 
         # scroll ke menu my wallet
         self.scrollTo(menu_my_wallet)
+
+        # tekan button logout
+        self.click_button_logout()
+
+    def doLogoutAdmin(self):
+        # tekan button profile
+        self.click_button_profile_admin()
 
         # tekan button logout
         self.click_button_logout()
