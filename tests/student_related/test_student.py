@@ -97,8 +97,8 @@ class TestStudent(BaseClass):
       time.sleep(2)
       studentPage.click_menu("My Learning")
       time.sleep(2)
-      # actual_message = studentPage.getMenu("SDP").text
-      # assert "SDP" == actual_message
+      actual_message = studentPage.getMenuElement("SDP").text
+      assert "SDP" == actual_message
 
 
     @pytest.mark.parametrize("email, password", [
