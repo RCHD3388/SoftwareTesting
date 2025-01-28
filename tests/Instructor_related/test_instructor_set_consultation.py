@@ -14,8 +14,8 @@ class TestInstructorSetConsultation(BaseClass):
       PageData.getTestData("LoginData", "testcase3")
     ])
     @pytest.mark.parametrize("consultation_privacy, consultation_type, consultation_area,consultation_fee, consultation_old_fee, offline_status_message, start_time, end_time", [
-      PageData.getTestData("InstructorConsultationData", "test1")
-      # PageData.getTestData("InstructorConsultationData", "test2")
+      PageData.getTestData("InstructorConsultationData", "test1"),
+      PageData.getTestData("InstructorConsultationData", "test2")
     ])
     def test_instrucutor_set_consultation(self, email, password, consultation_privacy, consultation_type, consultation_area,consultation_fee, consultation_old_fee, offline_status_message, start_time: str, end_time: str):
       landingPage = LandingPage(self.driver)

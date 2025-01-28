@@ -13,17 +13,16 @@ class TestInstructorReplyDiscussionChat(BaseClass):
     @pytest.mark.parametrize("email, password", [
       PageData.getTestData("LoginData", "testcase3")
     ])
-    # @pytest.mark.parametrize("receiver_name, course_name, message", [
-    #   PageData.getTestData("InstructorChatData", "test1"),
-    #   PageData.getTestData("InstructorChatData", "test2")
-    # ])
-    def test_instructor_reply_discussion(self,email, password,
-                                #   receiver_name, course_name, message
-                                  ):
+    @pytest.mark.parametrize("message, receiver_name", [
+      PageData.getTestData("InstructorDiscussionReplyData", "test1"),
+      PageData.getTestData("InstructorDiscussionReplyData", "test2")
+    ])
+    def test_instructor_reply_discussion(self,email, password, message, receiver_name):
         landingPage = LandingPage(self.driver)
         instructorPage = InstructorPage(self.driver)
 
         log = self.getLogger()
+        log.info(f"Receiver name {receiver_name}")
 
         # delay
         def delay(t=0.3):
@@ -57,18 +56,17 @@ class TestInstructorReplyDiscussionChat(BaseClass):
         delay(1)
 
         # isi chat
-        instructorPage.enter_discussion_chat_reply("name","commentReply","nice")
+        instructorPage.enter_discussion_chat_reply("name","commentReply",message)
         delay()
 
         # tekan button reply
         instructorPage.click_reply_button("span","class","default-hover-btn")
         delay(1)
 
-        # assert message yang dikirim apakah sesuai
-        # expected_msg = message
-        # actual_msg = instructorPage.get_chat_message_text("sender")
-        # log.info(f"Actual message: {actual_msg}")
-
-        # assert expected_msg == actual_msg
+        # assert reply chat sukses
+        expected_message = "Replied successful."
+        actual_message = instructorPage.getToastMessage()
+        delay()
+        assert actual_message == expected_message, f"Expected: {expected_message}, but got: {actual_message}"
         
         delay(2)
