@@ -18,7 +18,7 @@ class TestAdminOrganization(BaseClass):
       PageData.getTestData("LoginData", "testcase1")
     ])
     @pytest.mark.parametrize("first, last, email_student, password_student, phone, address, postal, country, gender, state, city, area, about", [
-      PageData.getTestData("AdminStudentData", "studentcase4")
+      PageData.getTestData("AdminStudentData", "studentcase5")
     ])
 
     def test_student_from_admin(self, email, password, first, last, email_student, password_student, phone, address, postal, country, gender, state, city, area, about):
