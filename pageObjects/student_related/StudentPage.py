@@ -23,9 +23,13 @@ class StudentPage:
 
     button_enroll = (By.XPATH, "//span[@class='msgInfoChange']")
     profile_img = (By.XPATH, "//img[@alt='user']")
+    profile_dropdown = (By.XPATH, "//a[@id='dropdownUser']//img[@alt='icon']")
 
     country_select = (By.XPATH, "//*[@id='country_id']/option[2]")
     pay_paypal = (By.XPATH, "//div[@class='regular-btn']//button[@type='submit']")
+
+    def click_profile_dropdown(self):
+        self.driver.find_element(*self.profile_dropdown).click()
 
     # scroll to x and y
     def scrollToXY(self, x, y):
@@ -62,6 +66,9 @@ class StudentPage:
     
     def getMenu(self, placeholder):
         return(By.XPATH, f"//a[normalize-space()='{placeholder}']")
+    
+    def getMenuElement(self, placeholder):
+        return self.driver.find_element(*self.getMenu(placeholder))
     
     def get_label(self, placeholder):
         return(By.XPATH, f"//label[normalize-space()='{placeholder}']")
