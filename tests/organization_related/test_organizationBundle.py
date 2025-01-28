@@ -33,8 +33,8 @@ class TestOrganizationBundle(BaseClass):
         self.delay()  
         
         file_path = os.path.abspath(image)
-        file_path =file_path.replace("\\", "/") # UNTUK MAC LINUX
-        # file_path =file_path.replace("\\", "\\\\")
+        # file_path =file_path.replace("\\", "/") # UNTUK MAC LINUX
+        file_path =file_path.replace("\\", "\\\\")
         self.delay()
         organizationPage.enter_ins_img_field(file_path)
 

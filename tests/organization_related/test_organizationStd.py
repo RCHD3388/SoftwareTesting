@@ -19,8 +19,8 @@ class TestOrganizationIns(BaseClass):
     def createStudent(self, organizationPage, image, first_name, last_name, ins_email, ins_password, area, mobile, country, state, city, address, postal, gender, about, output):
       file_path = os.path.abspath(image)
       wait_time = 0.2
-      file_path =file_path.replace("\\", "/") # UNTUK MAC LINUX
-      # file_path =file_path.replace("\\", "\\\\")
+      # file_path =file_path.replace("\\", "/") # UNTUK MAC LINUX
+      file_path =file_path.replace("\\", "\\\\")
       time.sleep(wait_time)
       organizationPage.enter_ins_img_field(file_path)
       time.sleep(wait_time)
@@ -59,7 +59,7 @@ class TestOrganizationIns(BaseClass):
       PageData.getTestData("LoginData", "testcase2")
     ])
     @pytest.mark.parametrize("image, first_name, last_name, ins_email, ins_password, area, mobile, country, state, city, address, postal, gender, about, output", [
-      # PageData.getTestData("OrganizationStudentData", "testcase1"),
+      PageData.getTestData("OrganizationStudentData", "testcase1"),
       PageData.getTestData("OrganizationStudentData", "testcase2"),
       PageData.getTestData("OrganizationStudentData", "testcase3"),
       PageData.getTestData("OrganizationStudentData", "testcase4"),

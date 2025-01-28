@@ -19,8 +19,8 @@ class TestOrganizationIns(BaseClass):
     def createInstructor(self, organizationPage, image, first_name, last_name, ins_email, ins_password, prof_title, area, mobile, country, state, city, address, postal, gender, facebook, twitter, linkedin, pinterest, about, output):
       file_path = os.path.abspath(image)
       wait_time = 0.2
-      file_path = file_path.replace("\\", "/")
-      # file_path =file_path.replace("\\", "\\\\")
+      # file_path = file_path.replace("\\", "/")
+      file_path =file_path.replace("\\", "\\\\")
       time.sleep(wait_time)
       organizationPage.enter_ins_img_field(file_path)
       time.sleep(wait_time)
@@ -126,8 +126,8 @@ class TestOrganizationIns(BaseClass):
       # field input edit
       file_path = os.path.abspath(image)
       wait_time = 0.2
-      file_path = file_path.replace("\\", "/")
-      # file_path =file_path.replace("\\", "\\\\")
+      # file_path = file_path.replace("\\", "/")
+      file_path =file_path.replace("\\", "\\\\")
       organizationPage.enter_ins_img_field(file_path)
       organizationPage.enter_ins_field("Password", ins_password)
       time.sleep(wait_time)
