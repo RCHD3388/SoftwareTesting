@@ -8,6 +8,7 @@ from TestData.PageData import PageData
 from pageObjects.LandingPage import LandingPage
 from pageObjects.admin_related.AdminPage import AdminPage
 from pageObjects.intructor_related.InstructorPage import InstructorPage
+from pageObjects.admin_related.ManageAdminPage import ManageAdminPage
 from utilities.BaseClass import BaseClass
 import os
 class TestAdminOrganization(BaseClass):
@@ -17,7 +18,7 @@ class TestAdminOrganization(BaseClass):
       PageData.getTestData("LoginData", "testcase1")
     ])
     @pytest.mark.parametrize("first, last, email_student, password_student, phone, address, postal, country, gender, state, city, area, about", [
-      PageData.getTestData("StudentData", "studentcase1")
+      PageData.getTestData("AdminStudentData", "studentcase4")
     ])
 
     def test_student_from_admin(self, email, password, first, last, email_student, password_student, phone, address, postal, country, gender, state, city, area, about):
@@ -80,7 +81,7 @@ class TestAdminOrganization(BaseClass):
       
       
       time.sleep(waktu)
-      adminpage.enter_ins_field("Password",str(student_password_password))
+      adminpage.enter_ins_field("Password",str(student_password))
    
       adminpage.click_ins_button("Save")
       
