@@ -55,6 +55,9 @@ class TestAdminOrganization(BaseClass):
       
       time.sleep(10)
 
+    @pytest.mark.parametrize("email, password", [
+      PageData.getTestData("LoginData", "testcase1")
+    ])
     @pytest.mark.parametrize("student_password", [
       PageData.getTestData("EditStudentData", "studenteditdata1")
     ])
@@ -83,7 +86,9 @@ class TestAdminOrganization(BaseClass):
       
       time.sleep(30)
     
-    
+    @pytest.mark.parametrize("email, password", [
+      PageData.getTestData("LoginData", "testcase1")
+    ])
     def test_delete_organization_from_admin(self, email, password):
       waktu = 1
       landingPage = LandingPage(self.driver)

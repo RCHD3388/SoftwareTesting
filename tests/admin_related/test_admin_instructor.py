@@ -23,7 +23,7 @@ class TestAdmin(BaseClass):
     ])
     
     @pytest.mark.parametrize("fn, ln, email_instructor, password_insturctor, title, postal_code, pn, address, area_code, country, state, city, gender, facebook, twitter, linkedin, pinterest, about, msg", [
-      PageData.getTestData("AdminInstructorIns", "instructordata3")
+      PageData.getTestData("AdminInstructorIns", "instructordata6")
     ])
     def test_insert_instructor_from_admin(self, email, password, fn, ln, email_instructor, password_insturctor, title, postal_code, pn, address, area_code, country, state, city, gender, facebook, twitter, linkedin, pinterest, about, msg):
       waktu = 1
@@ -81,6 +81,9 @@ class TestAdmin(BaseClass):
 
       assert organizationPage.getToastMessage() == msg
     
+    @pytest.mark.parametrize("email, password", [
+      PageData.getTestData("LoginData", "testcase1")
+    ])
     @pytest.mark.parametrize("password_instructor,msg", [
       PageData.getTestData("InstructorEditData", "editinstructor1")
     ])
@@ -88,7 +91,6 @@ class TestAdmin(BaseClass):
       waktu = 2
       landingPage = LandingPage(self.driver)
       adminpage = AdminPage(self.driver)
-      manageadmin = ManageAdminPage(self.driver)
       landingPage.doLogin(email, password)
       instructorpage = InstructorPage(self.driver)
       time.sleep(waktu)
@@ -100,7 +102,6 @@ class TestAdmin(BaseClass):
       time.sleep(waktu)
       adminpage.click_edit_instructor()
       
-      time.sleep(waktu)
       
       time.sleep(waktu)
       adminpage.enter_ins_field("Password", str(password_instructor))
@@ -111,7 +112,9 @@ class TestAdmin(BaseClass):
       assert organizationPage.getToastMessage() == msg
       time.sleep(5)
       
-      
+    @pytest.mark.parametrize("email, password", [
+      PageData.getTestData("LoginData", "testcase1")
+    ])
     def test_delete_instructor_from_admin(self, email, password):
       waktu = 5
       landingPage = LandingPage(self.driver)

@@ -20,7 +20,7 @@ class TestAdminOrganization(BaseClass):
       PageData.getTestData("LoginData", "testcase1")
     ])
     @pytest.mark.parametrize("first, last, email_org, password_org, title, phone, address, postal, facebook, twitter, linkedin, pinterest, country, gender, state, city, area, about,msg", [
-      PageData.getTestData("OrganizationData", "orgcase2")
+      PageData.getTestData("OrganizationData", "orgcase1")
     ])
 
     def test_organization_from_admin(self, email, password, first, last, email_org, password_org, title, phone, address, postal, facebook, twitter, linkedin, pinterest, country, gender, state, city, area, about,msg):
@@ -54,10 +54,14 @@ class TestAdminOrganization(BaseClass):
       adminpage.enter_ins_textarea("about_me", about)
      
       adminpage.click_ins_button("Save")
+      organizationPage = OrganizationPage(self.driver)
       time.sleep(2) 
-      assert adminpage.getToastMessage() == msg
+      assert organizationPage.getToastMessage() == msg
       time.sleep(2)
 
+    @pytest.mark.parametrize("email, password", [
+      PageData.getTestData("LoginData", "testcase1")
+    ])
     @pytest.mark.parametrize("org_password", [
       PageData.getTestData("EditOrgData", "orgeditdata1")
     ])
@@ -66,7 +70,6 @@ class TestAdminOrganization(BaseClass):
       waktu = 1
       landingPage = LandingPage(self.driver)
       adminpage = AdminPage(self.driver)
-      manageadmin = ManageAdminPage(self.driver)
       landingPage.doLogin(email, password)  
       instructorpage = InstructorPage(self.driver)
       time.sleep(waktu)
@@ -86,7 +89,9 @@ class TestAdminOrganization(BaseClass):
       
       time.sleep(30)
     
-    
+    @pytest.mark.parametrize("email, password", [
+      PageData.getTestData("LoginData", "testcase1")
+    ])
     def test_delete_organization_from_admin(self, email, password):
       waktu = 1
       landingPage = LandingPage(self.driver)
