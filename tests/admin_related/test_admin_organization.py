@@ -87,7 +87,7 @@ class TestAdminOrganization(BaseClass):
    
       adminpage.click_ins_button("Save")
       
-      time.sleep(30)
+      time.sleep(10)
     
     @pytest.mark.parametrize("email, password", [
       PageData.getTestData("LoginData", "testcase1")
