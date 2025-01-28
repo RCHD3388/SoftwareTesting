@@ -213,44 +213,49 @@ class TestStudent(BaseClass):
 
     def test_buy_consultation(self, setup, email, password):
       landingPage = LandingPage(self.driver)
+      email = "studenttest@gmail.com"
       landingPage.doLogin(email, password)
       studentPage = StudentPage(self.driver)
 
       ActionChains(self.driver).move_to_element(self.driver.find_element(*studentPage.profile_img)).perform()
       time.sleep(2)
-
+      def delay(t=1):
+        time.sleep(t)
       studentPage.click_menu("My Consultation")
-      time.sleep(2)
+      delay()
 
       studentPage.click_menu("Browse More Consultation")
-      time.sleep(2)
+      delay()
 
-      studentPage.scrollToXY(0, 70);
-      time.sleep(2)
+      studentPage.scrollToXY(0, 70)
+      delay()
 
       studentPage.click_insert_button("Book Schedule")
+      delay(1)
+
+      studentPage.enter_insert_field("datepicker","1")
       time.sleep(2)
 
-      studentPage.enter_insert_field("datepicker","25")
+      studentPage.click_date_picker_button()
       time.sleep(2)
 
-      studentPage.click_menu("25")
+      studentPage.click_menu("1")
       time.sleep(5)
 
       studentPage.click_label("In Person")
-      time.sleep(2)
+      delay()
 
-      studentPage.click_label("10:08 AM - 12:08 AM")
-      time.sleep(2)
+      studentPage.click_label("10:08 AM - 12:08 PM")
+      delay()
 
       studentPage.click_insert_button("Make Payment")
-      time.sleep(2)
+      delay()
 
-      studentPage.scrollToXY(0,50)
-      time.sleep(2)
+      studentPage.scrollToXY(0,80)
+      delay(10)
 
       studentPage.click_insert_field_name("proceed_to_checkout")
-      time.sleep(2)
+      delay()
 
       try:
         studentPage.click_arial_label("Close").click()
@@ -274,26 +279,26 @@ class TestStudent(BaseClass):
       except Exception as e:
         studentPage.enter_insert_field("address", "AlamatTest")
         studentPage.click_select_field("country_id")
-        time.sleep(2)
+        delay()
         studentPage.combo_box_select("country_id", "2").click()
-        time.sleep(2)
+        delay()
         studentPage.click_select_field("state_id")
-        time.sleep(2)
+        delay()
         studentPage.combo_box_select("state_id", 2).click()
-        time.sleep(2)
+        delay()
         studentPage.click_select_field("state_id")
-        time.sleep(2)
+        delay()
         studentPage.combo_box_select("state_id", 2).click()
-        time.sleep(2)
+        delay()
         studentPage.enter_insert_field("postal_code", "032949234")
-        time.sleep(2)
+        delay()
       finally:
         ActionChains(self.driver).move_to_element(self.driver.find_element(*studentPage.get_span_normalize_space("Instamojo"))).perform()
         time.sleep(2)
 
         studentPage.click_checkbox_field("paypalPayment")
 
-        time.sleep(2)
+        delay()
 
         studentPage.click_pay_paypal()
 
@@ -301,16 +306,17 @@ class TestStudent(BaseClass):
 
         studentPage.enter_insert_field("email", "sb-vsrrv29812931@personal.example.com")
 
-        time.sleep(2)
+        delay()
 
         studentPage.click_button_byid("btnNext")
-        time.sleep(2)
+        delay()
 
         studentPage.enter_insert_field("password", "*XUe5$Z1")
-        time.sleep(2)
+        delay()
 
         studentPage.click_button_byid("btnLogin")
-        time.sleep(2)
+        delay()
 
         studentPage.click_button_byid("payment-submit-btn")
         time.sleep(10)
+        

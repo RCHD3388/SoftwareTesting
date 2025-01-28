@@ -7,6 +7,7 @@ class StudentPage:
     def __init__(self, driver):
         self.driver = driver
 
+    next_date_picker_button = (By.XPATH, "//a[@class='ui-datepicker-next ui-corner-all']")
     become_instructor = (By.XPATH, "//a[normalize-space()='Become an Instructor']")
     become_instructor_toast_message = (By.XPATH, "(//button[@class='theme-btn theme-button1 theme-button3 mr-30'][normalize-space()='Become an Instructor'])[1]")
     become_instructor_toast_message_locator = (By.XPATH, "(//*[name()='polyline'])[1]")
@@ -23,13 +24,9 @@ class StudentPage:
 
     button_enroll = (By.XPATH, "//span[@class='msgInfoChange']")
     profile_img = (By.XPATH, "//img[@alt='user']")
-    profile_dropdown = (By.XPATH, "//a[@id='dropdownUser']//img[@alt='icon']")
 
     country_select = (By.XPATH, "//*[@id='country_id']/option[2]")
     pay_paypal = (By.XPATH, "//div[@class='regular-btn']//button[@type='submit']")
-
-    def click_profile_dropdown(self):
-        self.driver.find_element(*self.profile_dropdown).click()
 
     # scroll to x and y
     def scrollToXY(self, x, y):
@@ -43,8 +40,8 @@ class StudentPage:
     def combo_box_select (self, placeholder, index):
         return (By.XPATH, f"//*[@id='{placeholder}']/option[{index}]")
     
-    def click_combo_box_select (self, placeholder, index):
-        self.driver.find_element(*self.combo_box_select(placeholder,index)).click()
+    def click_date_picker_button(self):
+        self.driver.find_element(*self.next_date_picker_button).click()
 
     def click_pay_paypal (self):
         self.driver.find_element(*self.pay_paypal).click()
@@ -69,9 +66,6 @@ class StudentPage:
     
     def getMenu(self, placeholder):
         return(By.XPATH, f"//a[normalize-space()='{placeholder}']")
-    
-    def getMenuElement(self, placeholder):
-        return self.driver.find_element(*self.getMenu(placeholder))
     
     def get_label(self, placeholder):
         return(By.XPATH, f"//label[normalize-space()='{placeholder}']")
@@ -106,6 +100,7 @@ class StudentPage:
         return (By.XPATH, f"//button[normalize-space()='{placeholder}']")
 
     def click_menu(self, placeholder):
+        # self.driver.execute_script("arguments[0].click();", self.driver.find_element(*self.getMenu(placeholder)))
         self.driver.find_element(*self.getMenu(placeholder)).click()
 
     def click_menu_h6(self, placeholder):
