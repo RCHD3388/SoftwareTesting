@@ -14,10 +14,10 @@ from pageObjects.LandingPage import LandingPage
 from pageObjects.intructor_related.InstructorPage import InstructorPage
 class TestSkenarioChatting(BaseClass):
     @pytest.mark.parametrize("student_email, student_password",[
-        (PageData.student_email, PageData.student_password)
+        PageData.getTestData("LoginData", "testcase4")
     ])
     @pytest.mark.parametrize("content, username, course", [
-        PageData.getTestData("Chats", "testcase4")
+        PageData.getTestData("Chats", "testcase1")
     ])
     @pytest.mark.parametrize("instructor_email, instructor_password", [
         PageData.getTestData("LoginData", "testcase3")   
@@ -32,8 +32,9 @@ class TestSkenarioChatting(BaseClass):
         studentPage = StudentPage(self.driver)
         studentPage.goToChats(content, username, course)
         time.sleep(2)
+        assert studentPage.getLatestChat() == content
+        time.sleep(2)
         studentPage.doLogout()
-        landingPage.doLogin(instructor_email, instructor_password)
         time.sleep(2)
         instructorPage = InstructorPage(self.driver)
 
@@ -44,7 +45,7 @@ class TestSkenarioChatting(BaseClass):
             time.sleep(t)
 
         # login
-        landingPage.doLogin(email, password)
+        landingPage.doLogin(instructor_email, instructor_password)
         delay()
     
 
@@ -86,4 +87,5 @@ class TestSkenarioChatting(BaseClass):
         expected_msg = message
         actual_msg = instructorPage.get_chat_message_text("sender")
         log.info(f"Actual message: {actual_msg}")
+        assert expected_msg == actual_msg
         

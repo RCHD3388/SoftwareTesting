@@ -181,14 +181,27 @@ class StudentPage:
         return self.driver.find_element(*self.discussions_submit_button)
     
     def getDiscussionsFinalContent(self, index):
-        discussions_final_content_xpath = '//*[@id="Discussion"]/div/div/div/div[2]/div/div/div[{}]/div[2]/div[1]/p'.format(index)
         wait = WebDriverWait(self.driver, 10)
+        discussions_button = wait.until(EC.presence_of_element_located(self.discussions_button))
+        self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", discussions_button)
+        time.sleep(2)
+        discussions_button = wait.until(EC.element_to_be_clickable(self.discussions_button))
+        discussions_button.click()
+        time.sleep(2)
+        discussions_final_content_xpath = '//*[@id="Discussion"]/div/div/div/div[2]/div/div/div[{}]/div[2]/div[1]/p'.format(index)
+
         try:
             print(f"Looking for element with XPath: {discussions_final_content_xpath}")
             wait.until(EC.presence_of_element_located((By.XPATH, discussions_final_content_xpath)))
             discussions_element = self.driver.find_element(By.XPATH, discussions_final_content_xpath)
-            self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", discussions_element)
-            return discussions_element.text
+            
+            # Check if the element is displayed
+            if discussions_element.is_displayed():
+                self.driver.execute_script("arguments[0].scrollIntoView({behavior: 'smooth', block: 'center'});", discussions_element)
+                return discussions_element.text
+            else:
+                print(f"Element found but not displayed: {discussions_final_content_xpath}")
+                return None
         except TimeoutException:
             print(f"Element not found for index {index}: {discussions_final_content_xpath}")
             return None
