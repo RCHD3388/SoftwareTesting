@@ -46,9 +46,6 @@ class StudentPage:
     
     def click_date_picker_button(self):
         self.driver.find_element(*self.next_date_picker_button).click()
-    
-    def click_combo_box_select (self, placeholder, index):
-        self.driver.find_element(*self.combo_box_select(placeholder,index)).click()
 
     def click_pay_paypal (self):
         self.driver.find_element(*self.pay_paypal).click()
