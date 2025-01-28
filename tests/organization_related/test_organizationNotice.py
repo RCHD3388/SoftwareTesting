@@ -36,7 +36,7 @@ class TestOrganizationNotice(BaseClass):
       PageData.getTestData("OrganizationNoticeData", "testcase2"),
       PageData.getTestData("OrganizationNoticeData", "testcase3")
     ])
-    def test_organization_add_bundle(self, email, password, topic, detail, previous):
+    def test_organization_add_notice(self, email, password, topic, detail, previous):
       landingPage = LandingPage(self.driver)
       organizationPage = OrganizationPage(self.driver)
 
@@ -68,7 +68,7 @@ class TestOrganizationNotice(BaseClass):
       PageData.getTestData("OrganizationNoticeData", "testcase5"),
       PageData.getTestData("OrganizationNoticeData", "testcase6")
     ])
-    def test_organization_edit_bundle(self, email, password, topic, detail, previous):
+    def test_organization_edit_notice(self, email, password, topic, detail, previous):
       landingPage = LandingPage(self.driver)
       organizationPage = OrganizationPage(self.driver)
 
@@ -99,7 +99,7 @@ class TestOrganizationNotice(BaseClass):
       PageData.getTestData("OrganizationNoticeData", "testcase5"),
       PageData.getTestData("OrganizationNoticeData", "testcase6")
     ])
-    def test_organization_view_bundle(self, email, password, topic, detail, previous):
+    def test_organization_view_notice(self, email, password, topic, detail, previous):
       landingPage = LandingPage(self.driver)
       organizationPage = OrganizationPage(self.driver)
 
@@ -138,7 +138,7 @@ class TestOrganizationNotice(BaseClass):
       PageData.getTestData("OrganizationNoticeData", "testcase5"),
       PageData.getTestData("OrganizationNoticeData", "testcase6")
     ])
-    def test_organization_delete_bundle(self, email, password, topic, detail, previous):
+    def test_organization_delete_notice(self, email, password, topic, detail, previous):
       landingPage = LandingPage(self.driver)
       organizationPage = OrganizationPage(self.driver)
 
