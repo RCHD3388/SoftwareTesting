@@ -8,27 +8,12 @@ from TestData.PageData import PageData
 from pageObjects.LandingPage import LandingPage
 from utilities.BaseClass import BaseClass
 
-
 class TestLogin(BaseClass):
-    
-    def doLogin(self, username, password): 
+
+    @pytest.mark.parametrize("email, password", [
+      PageData.getTestData("LoginData", "testcase1")
+    ])
+    def test_login(self, email, password):
       landingPage = LandingPage(self.driver)
-      time.sleep(2)    
-
-      # click go to login page
-      landingPage.click_login_button()
-      time.sleep(0.5)
-
-      # enter username
-      landingPage.enter_username(username)
-      time.sleep(0.5)
-      # enter password
-      landingPage.enter_password(password)
-      time.sleep(0.5)
-      # click login button
-      landingPage.click_login_submit_button()
-      time.sleep(2)
-
-    def test_login(self):
-        self.doLogin("admin@gmail.com","123456")
+      landingPage.doLogin(email, password)
 

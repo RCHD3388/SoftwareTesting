@@ -9,12 +9,11 @@ from pageObjects.LandingPage import LandingPage
 from utilities.BaseClass import BaseClass
 
 
-# @pytest.mark.usefixtures("setup")
 class TestRegister(BaseClass):
     
     def doRegister(self, email, code, first_name, mobile_number, last_name, password): 
       landingPage = LandingPage(self.driver)
-      time.sleep(0.5)    
+      time.sleep(0.5)     
 
       # click go to login page
       landingPage.click_login_button()
@@ -46,10 +45,9 @@ class TestRegister(BaseClass):
       
       time.sleep(2)
 
-
     @pytest.mark.parametrize("email, code, mobile_number, first_name, last_name, password", [
-      PageData.getTestData("testcase1"),
-      PageData.getTestData("testcase2")
+      PageData.getTestData("RegisterData", "testcase1"),
+      PageData.getTestData("RegisterData", "testcase2")
     ])
     def test_register(self, email, code, first_name, mobile_number, last_name, password):
         self.doRegister(email, code, first_name, mobile_number, last_name, password)
